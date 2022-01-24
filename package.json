@@ -29,6 +29,14 @@
       "pengzhanbo"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/pengzhanbo/chinese-simple2traditional",
+  "bugs": {
+    "url": "https://github.com/pengzhanbo/chinese-simple2traditional/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pengzhanbo/chinese-simple2traditional.git"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/plugin-proposal-class-properties": "^7.16.5",

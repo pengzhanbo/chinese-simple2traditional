@@ -1,12 +1,15 @@
-## Chinese simplified and traditional conversion
-### 中文繁简体转换
+# Chinese simplified and traditional conversion
+
+## 中文繁简体转换
 
 ### Install
+
 ``` sh
 npm install chinese-simple2traditional
 ```
 
 ### Usage
+
 ``` js
 import { simpleToTradition, traditionToSimple } from 'chinese-simple2traditional';
 
