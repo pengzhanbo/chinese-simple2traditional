@@ -1,6 +1,6 @@
 {
   "name": "chinese-simple2traditional",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "中文繁简体互换。支持node端、浏览器端",
   "main": "dist/chinese-simple2traditional.js",
   "scripts": {
