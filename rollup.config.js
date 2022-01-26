@@ -1,27 +1,15 @@
-import babel from '@rollup/plugin-babel';
+import swc from './.rollup/plugins/rollup-plugin-swc/index.js';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import eslint from '@rollup/plugin-eslint';
 import { terser } from 'rollup-plugin-terser';
+// import eslint from '@rollup/plugin-eslint';
+// import { terser } from 'rollup-plugin-terser';
 
 const entry = 'src/index.ts';
 
 const dist = (name) => `dist/chinese-simple2traditional${name}.js`;
 
 const banner = '';
-
-const plugins = [
-    nodeResolve({
-        extensions: ['.js', '.ts'],
-    }),
-    commonjs(),
-    eslint(),
-    babel({
-        exclude: 'node_modules',
-        extensions: ['.js', '.ts'],
-        babelHelpers: 'bundled',
-    }),
-];
 
 export default [
     {
@@ -31,22 +19,16 @@ export default [
                 file: dist(''),
                 format: 'umd',
                 name: 'chineseSimple2Traditional',
-                // exports: 'default',
                 banner,
-            },
-            {
-                file: dist('.common'),
-                format: 'cjs',
-                // exports: 'default',
-                banner,
-            },
-            {
-                file: dist('.esm'),
-                format: 'es',
-                banner,
-            },
+            }
         ],
-        plugins,
+        plugins: [
+            nodeResolve({
+                extensions: ['.js', '.ts'],
+            }),
+            commonjs(),
+            swc(),
+        ]
     },
     {
         input: entry,
@@ -55,23 +37,15 @@ export default [
                 file: dist('.min'),
                 format: 'umd',
                 name: 'chineseSimple2Traditional',
-                // exports: 'default',
                 banner,
-            },
-            {
-                file: dist('.common.min'),
-                format: 'cjs',
-                // exports: 'default',
-                banner,
-            },
-            {
-                file: dist('.esm.min'),
-                format: 'es',
-                banner,
-            },
+            }
         ],
         plugins: [
-            ...plugins,
+            nodeResolve({
+                extensions: ['.js', '.ts'],
+            }),
+            commonjs(),
+            swc(),
             terser({
                 compress: {
                     arrows: false,
@@ -100,10 +74,7 @@ export default [
                 mangle: {
                     safari10: true,
                 },
-                output: {
-                    comments: false,
-                },
-            }),
+            })
         ],
     },
 ];
