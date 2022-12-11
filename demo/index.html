@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>繁简体转换</title>
-    <script src="../dist/chinese-simple2traditional.js"></script>
+    <script src="../dist/index.global.js"></script>
 </head>
 <body>
     <script type="text/javascript">
-        const { simpleToTradition, traditionToSimple } = window.chineseSimple2Traditional || {};
+        const { simpleToTradition, traditionToSimple } =
+  window.chineseSimple2Traditional || {}
         const s = '主人何为言少钱，径须酤取对君酌'
         const t = '主人何為言少錢，徑須酤取對君酌'
         document.writeln(`<p>${s}  <br/> 简转繁:  ${simpleToTradition(s)}</p>`)

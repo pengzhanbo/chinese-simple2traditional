@@ -1,18 +1,24 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "declaration": true,
-        "removeComments": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "es2015",
-        "sourceMap": false,
-        "outDir": "./dist",
-        "baseUrl": "./",
-        "incremental": true
-    },
-    "include": [
-        "./src"
-    ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "es2020",
+    "declaration": true,
+    "lib": [
+      "DOM",
+      "ES2020"
+    ],
+    "target": "ES2018",
+    "skipLibCheck": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "newLine": "lf",
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "declarationMap": false,
+  },
+  "include": ["src/**/*", "demo/**/*", "test/**/*"],
+  "exclude": ["node_modules"],
 }
