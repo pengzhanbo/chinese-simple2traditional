@@ -1,7 +1,7 @@
 {
   "name": "chinese-simple2traditional",
-  "version": "1.1.0",
-  "description": "中文繁简体互换。支持node端、浏览器端",
+  "version": "1.2.0",
+  "description": "中文繁简体互换，支持node端、浏览器端。",
   "keywords": [
     "中文",
     "简体",
@@ -12,44 +12,6 @@
     "chinese simple",
     "chinese traditional"
   ],
-  "author": "pengzhanbo",
-  "maintainers": [
-    "pengzhanbo"
-  ],
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    }
-  },
-  "scripts": {
-    "build": "tsup",
-    "test": "ava --color",
-    "release": "npm run build && npm publish"
-  },
-  "tsup": {
-    "format": [
-      "cjs",
-      "esm",
-      "iife"
-    ],
-    "entry": [
-      "src/index.ts"
-    ],
-    "globalName": "chineseSimple2Traditional",
-    "sourcemap": false,
-    "dts": true,
-    "splitting": false,
-    "clean": true
-  },
-  "files": [
-    "dist"
-  ],
-  "license": "MIT",
   "homepage": "https://github.com/pengzhanbo/chinese-simple2traditional",
   "bugs": {
     "url": "https://github.com/pengzhanbo/chinese-simple2traditional/issues"
@@ -58,17 +20,40 @@
     "type": "git",
     "url": "git+https://github.com/pengzhanbo/chinese-simple2traditional.git"
   },
+  "license": "MIT",
+  "author": "pengzhanbo",
+  "maintainers": [
+    "pengzhanbo"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "ava --color",
+    "release": "npm run build && npm publish"
+  },
   "prettier": "@pengzhanbo/prettier-config",
   "devDependencies": {
-    "@pengzhanbo/eslint-config-ts": "^0.2.10",
-    "@pengzhanbo/prettier-config": "^0.2.10",
-    "@types/node": "^18.11.13",
-    "ava": "^5.1.0",
-    "eslint": "^8.29.0",
-    "prettier": "^2.8.1",
+    "@pengzhanbo/eslint-config": "^0.3.14",
+    "@pengzhanbo/prettier-config": "^0.3.14",
+    "@types/node": "^18.16.17",
+    "ava": "^5.3.0",
+    "eslint": "^8.42.0",
+    "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
+    "tsup": "^6.7.0",
+    "typescript": "^5.1.3"
   },
   "publishConfig": {
     "access": "public"
