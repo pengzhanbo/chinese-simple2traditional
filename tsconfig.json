@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "es2020",
+    "module": "ESNext",
     "declaration": true,
-    "lib": [
-      "DOM",
-      "ES2020"
-    ],
-    "target": "ES2018",
+    "lib": ["DOM", "ESNext"],
+    "target": "ES2020",
     "skipLibCheck": true,
     "strict": false,
     "strictNullChecks": true,
@@ -17,8 +14,8 @@
     "noEmitOnError": true,
     "noImplicitAny": false,
     "resolveJsonModule": true,
-    "declarationMap": false,
+    "declarationMap": false
   },
   "include": ["src/**/*", "demo/**/*", "test/**/*"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
