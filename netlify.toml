@@ -1,0 +1,7 @@
+[build]
+publish = "playground/dist"
+command = "pnpm install && pnpm playground:build"
+
+[build.environment]
+NODE_VERSION = "18" # prevent Netlify npm install
+NPM_FLAGS = "--version"

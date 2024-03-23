@@ -1,21 +1,33 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "baseUrl": ".",
     "module": "ESNext",
-    "declaration": true,
-    "lib": ["DOM", "ESNext"],
-    "target": "ES2020",
-    "skipLibCheck": true,
-    "strict": false,
-    "strictNullChecks": true,
-    "sourceMap": false,
     "moduleResolution": "node",
-    "newLine": "lf",
-    "noEmitOnError": true,
-    "noImplicitAny": false,
+    "paths": {
+      "chinese-simple2traditional": ["./src/index.ts"],
+      "chinese-simple2traditional/enhance": ["./src/enhance.ts"],
+      "@raise/han-convert": ["./src/index.ts"],
+      "@raise/han-convert/enhance": ["./src/enhance.ts"]
+    },
     "resolveJsonModule": true,
-    "declarationMap": false
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*", "demo/**/*", "test/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "./src",
+    "./test",
+    "./scripts",
+    "./playground"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
