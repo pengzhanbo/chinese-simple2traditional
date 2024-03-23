@@ -1,11 +1,11 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  format: ['cjs', 'esm', 'iife'],
-  entry: ['src/index.ts'],
-  globalName: 'chineseSimple2Traditional',
+  format: 'esm',
+  entry: ['src/index.ts', 'src/enhance.ts'],
   sourcemap: false,
   dts: true,
-  splitting: false,
+  splitting: true,
   clean: true,
+  minify: 'terser',
 })

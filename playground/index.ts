@@ -1,0 +1,41 @@
+import './styles.css'
+
+import { toSimplified, toTraditional } from 'chinese-simple2traditional'
+import { setupEnhance } from 'chinese-simple2traditional/enhance'
+
+setupEnhance() // 注入短语库
+
+const toggle = document.querySelector('#toggle') as HTMLButtonElement
+const enhance = document.querySelector('#enhance') as HTMLInputElement
+const input = document.querySelector('#input') as HTMLTextAreaElement
+const output = document.querySelector('#output') as HTMLParagraphElement
+const meta = document.querySelector('#meta') as HTMLParagraphElement
+
+let type: 's2t' | 't2s' = 's2t'
+let isEnhance = false
+
+toggle.addEventListener('click', () => {
+  type = type === 's2t' ? 't2s' : 's2t'
+  toggle.parentElement!.classList.toggle('reverse')
+  convert()
+})
+
+enhance.addEventListener('change', () => {
+  isEnhance = enhance.checked
+  convert()
+})
+
+input.addEventListener('input', () => {
+  convert()
+}, { passive: true })
+
+function convert() {
+  const text = input.value
+  const begin = performance.now()
+  const result = type === 's2t' ? toTraditional(text, isEnhance) : toSimplified(text, isEnhance)
+  const time = performance.now() - begin
+
+  output.innerHTML = result.replace(/\n/g, '<br>')
+
+  meta.textContent = `共 ${text.length} 字，耗时 ${time.toFixed(2)}ms`
+}

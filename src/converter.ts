@@ -1,34 +1,30 @@
-import { chineseLib } from './chineseLib.js'
+import type { PhrasesMap, Words } from './cache'
 
-const converter = (text: string, table: Record<string, string>) =>
-  text.replace(/./g, (char) => table[char] || char)
+export function converter(source: string, words: Words, phrases?: PhrasesMap): string {
+  const len = source.length
+  let target = ''
+  let i = 0
+  let has = false
+  while (i < len) {
+    const char = source[i]
+    if (phrases && phrases.has(char)) {
+      const [sources, targets] = phrases.get(char)!
+      const slice = source.slice(i)
+      for (const [j, s] of sources.entries()) {
+        if (slice.startsWith(s)) {
+          target += targets[j]
+          i += s.length
+          has = true
+          break
+        }
+      }
+    }
 
-let s2t: Record<string, string> | null = null
-let t2s: Record<string, string> | null = null
-
-export function simpleToTradition(text: string) {
-  if (!s2t) {
-    s2t = {}
-
-    chineseLib.split(' ').forEach((char) => {
-      s2t![char[0]] = char[1]
-    })
+    if (!has) {
+      target += words.get(char) || char
+      i += 1
+    }
+    else { has = false }
   }
-
-  return converter(text, s2t)
-}
-
-export function traditionToSimple(text: string) {
-  if (!t2s) {
-    t2s = {}
-
-    chineseLib.split(' ').forEach((char) => {
-      char.split('').forEach((_, i) => {
-        if (i === 0) return
-        t2s![char[i]] = char[0]
-      })
-    })
-  }
-
-  return converter(text, t2s)
+  return target
 }
