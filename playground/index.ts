@@ -37,5 +37,7 @@ function convert() {
 
   output.innerHTML = result.replace(/\n/g, '<br>')
 
+  input.style.setProperty('height', `${input.scrollHeight}px`)
+
   meta.textContent = `共 ${text.length} 字，耗时 ${time.toFixed(2)}ms`
 }
