@@ -14,6 +14,10 @@
 >
 > 如果你想使用 CommonJS 或 IIFE 导入，请使用 `v1` 版本。
 
+## 预览
+
+访问 [Live Demo](https://han-convert.netlify.app/) 查看演示。
+
 ## Install
 
 ``` sh

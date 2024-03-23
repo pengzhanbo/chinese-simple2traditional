@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "exports": {
     ".": "./src/index.ts",
-    "enhance": "./src/enhance.ts"
+    "./enhance": "./src/enhance.ts"
   },
   "publish": {
     "include": [
