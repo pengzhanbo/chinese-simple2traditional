@@ -64,7 +64,7 @@ async function write(filename: string, content: any, after = '') {
   )
 }
 
-function transform(content: string, reverse = false, same = false): TransformData {
+function transform(content: string, reverse = false): TransformData {
   const lines = content.replace(/[\s\n]+$/, '').split(/\n+/)
   const data: TransformData = {}
   for (const line of lines) {
@@ -77,7 +77,7 @@ function transform(content: string, reverse = false, same = false): TransformDat
 
     if (reverse) {
       for (const value of values) {
-        if ((key === value && !same) || value === '□')
+        if (value === '□')
           continue
 
         data[value] ??= []
@@ -85,11 +85,29 @@ function transform(content: string, reverse = false, same = false): TransformDat
       }
     }
     else {
-      const res = values.filter(v => same ? true : v !== key)
-      if (res.length) {
+      if (values.length) {
         data[key] ??= []
-        data[key].push(...res)
+        data[key].push(...values)
       }
+    }
+  }
+  return data
+}
+
+function transformPhrases(content: string): TransformData {
+  const lines = content.replace(/[\s\n]+$/, '').split(/\n+/)
+  const data: TransformData = {}
+  for (const line of lines) {
+    if (!line)
+      continue
+
+    const [key, ...values] = line.trim().split(/\s+/)
+    if (!key || key === '□')
+      continue
+
+    if (values.length) {
+      data[key] ??= []
+      data[key].push(...values)
     }
   }
   return data
@@ -107,11 +125,29 @@ function transformOld(oldWords: string): TransformData {
 }
 
 function merge(from: TransformData, to: TransformData) {
+  // 合并 1.x 版本的数据，避免遗漏错漏
   for (const [key, value] of Object.entries(from)) {
     if (key in to)
       to[key] = uniq([...to[key], ...value])
     else
       to[key] = value
+  }
+
+  // 清洗数据
+  // 1. 简繁同字，删除
+  // 2. 简繁同字，但存在异体字，将异体字移到后面
+  // 3. 简繁同字，但存在异体字，且异体字恰好是简体字，将异体字删除
+  for (const [key, values] of Object.entries(to)) {
+    const index = values.findIndex(v => v === key)
+    if (index !== -1) {
+      if (values.length === 1) {
+        to[key] = []
+      }
+      else {
+        to[key].splice(index, 1)
+        index !== values.length - 1 && to[key].unshift(key)
+      }
+    }
   }
 }
 
@@ -147,8 +183,8 @@ async function generate() {
   const s2t = transform(await read(files.s2t_c))
   const t2s = transform(await read(files.t2s_c), true)
   const full = transform(await read(files.full), true)
-  const sp = transform(await read(files.s2t_p), false, true)
-  const tp = transform(await read(files.t2s_p), false, true)
+  const sp = transformPhrases(await read(files.s2t_p))
+  const tp = transformPhrases(await read(files.t2s_p))
   const oldData = transformOld(await read(files.old_words))
 
   const full_content: string[] = ['‘『', '’』', '“「', '”」', '″〞', '〓═']
@@ -167,7 +203,7 @@ async function generate() {
 
   // 序列化内容
   for (const [key, values] of Object.entries(s2t))
-    full_content.push(`${key}${values.join('')}`)
+    values.length && full_content.push(`${key}${values.join('')}`)
 
   await write(files.full_words, `${full_content.join(' ')}`)
   await write(files.t_phrases, resolvePhrases(tp), ' as readonly [string, string]')
