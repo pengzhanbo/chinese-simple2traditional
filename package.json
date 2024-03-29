@@ -1,7 +1,7 @@
 {
   "name": "chinese-simple2traditional",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "packageManager": "pnpm@8.15.5",
   "description": "中文繁简体互换，支持node端、浏览器端。",
   "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
