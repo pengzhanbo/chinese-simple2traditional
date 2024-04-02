@@ -1,5 +1,14 @@
 # 中文繁简体转换
 
+![jsr](https://jsr.io/badges/@raise/han-convert)
+![jsr score](https://jsr.io/badges/@raise/han-convert/score)
+
+![NPM Version](https://img.shields.io/npm/v/chinese-simple2traditional)
+![NPM Downloads](https://img.shields.io/npm/dy/chinese-simple2traditional)
+![npm package minimized gzipped size](https://img.shields.io/bundlejs/size/chinese-simple2traditional?label=gzip)
+![NPM License](https://img.shields.io/npm/l/chinese-simple2traditional)
+![GitHub issue custom search](https://img.shields.io/github/issues-search?query=repo%3Apengzhanbo%2Fchinese-simple2traditional%20is%3Aissue%20is%3Aopen%20&logo=github&label=issue%20open)
+
 - 内置字库，零依赖，支持任何运行环境。
 - 支持 `3077+` 常用简体字 和 `4919+` 繁体字/异体字。
 - 支持 `3577+` 简体短语转繁体的特殊情况。
