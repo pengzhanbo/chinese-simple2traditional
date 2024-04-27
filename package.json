@@ -2,7 +2,7 @@
   "name": "chinese-simple2traditional",
   "type": "module",
   "version": "2.1.0",
-  "packageManager": "pnpm@8.15.5",
+  "packageManager": "pnpm@9.0.6",
   "description": "中文繁简体互换，支持node端、浏览器端。",
   "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
   "license": "MIT",
@@ -55,15 +55,15 @@
     "release": "bumpp package.json --commit --push --tag && npm publish --access public"
   },
   "devDependencies": {
-    "@pengzhanbo/eslint-config": "^1.7.0",
-    "@types/node": "^20.11.30",
+    "@pengzhanbo/eslint-config": "^1.9.1",
+    "@types/node": "^20.12.7",
     "bumpp": "^9.4.0",
-    "eslint": "^8.57.0",
-    "terser": "^5.29.2",
+    "eslint": "^9.1.1",
+    "terser": "^5.30.4",
     "tsup": "^8.0.2",
-    "tsx": "^4.7.1",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.3",
-    "vitest": "^1.4.0"
+    "tsx": "^4.7.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10",
+    "vitest": "^1.5.2"
   }
 }
