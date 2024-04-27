@@ -1,8 +1,7 @@
-import { beforeEach, it } from 'vitest'
+import { afterEach, beforeEach, it } from 'vitest'
 import { toSimplified, toTraditional } from '../src/index'
 import { setupEnhance } from '../src/enhance'
 import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache'
-import { afterEach } from 'node:test'
 
 beforeEach(() => {
   setupEnhance()

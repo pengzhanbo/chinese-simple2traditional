@@ -1,14 +1,13 @@
-import { beforeEach, it } from 'vitest'
-import { toSimplified, toTraditional, customS2TPhrases, customT2SPhrases } from '../src/index'
+import { afterEach, beforeEach, it } from 'vitest'
+import { customS2TPhrases, customT2SPhrases, toSimplified, toTraditional } from '../src/index'
 import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache'
-import { afterEach } from 'node:test'
 
 beforeEach(() => {
   customS2TPhrases([
     ['双台子区', '雙臺子區'],
   ])
   customT2SPhrases([
-    ['雖覆能復', '虽覆能复']
+    ['雖覆能復', '虽覆能复'],
   ])
 })
 

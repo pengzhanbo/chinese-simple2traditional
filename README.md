@@ -116,7 +116,7 @@ import { setupEnhance } from '@raise/han-convert/enhance'
 添加 自定义 简体转繁体 短语集合。
 
 - `phrases`: `[string, string][]` ， 短语集合
-  
+
   集合的每个元素为 `['简体短语', '繁体短语']` 的元组，表示 `简体短语` 转换为 `繁体短语`
 
 ```ts
@@ -135,7 +135,7 @@ toTraditional('双台子区', true) // 雙臺子區
 添加 自定义 繁体转简体 短语集合。
 
 - `phrases`: `[string, string][]` ， 短语集合
-  
+
   集合的每个元素为 `['繁体短语', '简体短语']` 的元组, 表示 `繁体短语` 转换为 `简体短语`
 
 ```ts
