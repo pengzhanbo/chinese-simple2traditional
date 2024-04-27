@@ -35,9 +35,9 @@ function convert() {
   const result = type === 's2t' ? toTraditional(text, isEnhance) : toSimplified(text, isEnhance)
   const time = performance.now() - begin
 
-  output.innerHTML = result.replace(/\n/g, '<br>')
+  output.innerHTML = result.replace(/\n$/, '<br><br>').replace(/\n/g, '<br>')
 
-  input.style.setProperty('height', `${input.scrollHeight}px`)
+  input.style.setProperty('height', `${output.offsetHeight}px`)
 
-  meta.textContent = `共 ${text.length} 字，耗时 ${time.toFixed(2)}ms`
+  meta.textContent = `共 ${text.replace(/\n/g, '').length} 字，耗时 ${time.toFixed(4)}ms`
 }

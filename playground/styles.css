@@ -58,27 +58,31 @@ header {
   border: none;
   outline: 0;
   background-color: transparent;
-  font-size: 48px;
-  line-height: 48px;
-  height: 48px;
+  font-size: 24px;
+  line-height: 24px;
+  height: 24px;
   color: #333;
   cursor: pointer;
 }
 
-.langs #toggle svg circle {
+.langs #toggle svg {
   transition: all 0.3s ease;
+  transform: rotate(0);
 }
 
-.langs.reverse #toggle svg circle {
-  cx: 16.5;
+.langs.reverse #toggle svg {
+  transform: rotate(180deg);
 }
 
 .box {
   position: relative;
   width: 100%;
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   border: 2px solid #e6eeff;
   border-radius: 8px;
+  padding: 20px 0;
   overflow: hidden;
   background: linear-gradient(0deg, #f4f7ff, #f4f7ff),
     linear-gradient(94.84deg, #fff 3.78%, #fcfdff 9.75%, #e6eeff 102.09%),
@@ -102,17 +106,18 @@ header {
   min-height: 300px;
   border: none;
   background-color: transparent;
-  padding: 20px;
+  padding: 0 20px;
   outline: 0;
   font-size: 20px;
   line-height: 32px;
-  resize: vertical;
+  resize: none;
 }
 
 #output {
   flex: 1;
+  align-self: flex-start;
   min-height: 300px;
-  padding: 20px;
+  padding: 0 20px;
   font-size: 20px;
   line-height: 32px;
 }
