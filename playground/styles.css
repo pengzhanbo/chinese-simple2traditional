@@ -15,6 +15,10 @@ body {
   color: rgba(60, 60, 67);
 }
 
+textarea {
+  font-family: inherit;
+}
+
 .fork {
   position: absolute;
   top: 0;
@@ -58,8 +62,8 @@ header {
   border: none;
   outline: 0;
   background-color: transparent;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 20px;
+  line-height: 20px;
   height: 24px;
   color: #333;
   cursor: pointer;
@@ -111,6 +115,7 @@ header {
   font-size: 20px;
   line-height: 32px;
   resize: none;
+  color: inherit;
 }
 
 #output {

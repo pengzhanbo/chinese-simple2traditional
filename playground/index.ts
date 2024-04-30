@@ -41,3 +41,5 @@ function convert() {
 
   meta.textContent = `共 ${text.replace(/\n/g, '').length} 字，耗时 ${time.toFixed(4)}ms`
 }
+
+input.focus()
