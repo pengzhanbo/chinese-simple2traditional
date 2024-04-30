@@ -25,3 +25,10 @@ it('phrases', ({ expect }) => {
   expect(toSimplified(res, true)).toBe(s)
   expect(toTraditional(s, true)).toBe(res)
 })
+
+it('traditional phrases to simplified', ({ expect }) => {
+  expect(toSimplified('一翦梅', true)).toBe('一剪梅')
+  expect(toSimplified('甚麼', true)).toBe('什么')
+  expect(toSimplified('什么', true)).toBe('什么')
+  expect(toSimplified('黃霑', true)).toBe('黃霑')
+})

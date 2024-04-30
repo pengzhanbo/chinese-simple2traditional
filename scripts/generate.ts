@@ -71,7 +71,7 @@ function transform(content: string, reverse = false): TransformData {
     if (!line)
       continue
 
-    const [key, ...values] = line.trim().split(/\s+/)
+    const [key, ...values] = line.trim().split(/[\s\t]+/)
     if (!key || key === '□')
       continue
 
