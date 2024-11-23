@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, it } from 'vitest'
-import { customS2TPhrases, customT2SPhrases, toSimplified, toTraditional } from '../src/index'
 import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache'
+import { customS2TPhrases, customT2SPhrases, toSimplified, toTraditional } from '../src/index'
 
 beforeEach(() => {
   customS2TPhrases([

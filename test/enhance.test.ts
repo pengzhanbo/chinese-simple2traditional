@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, it } from 'vitest'
-import { toSimplified, toTraditional } from '../src/index'
-import { setupEnhance } from '../src/enhance'
 import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache'
+import { setupEnhance } from '../src/enhance'
+import { toSimplified, toTraditional } from '../src/index'
 
 beforeEach(() => {
   setupEnhance()

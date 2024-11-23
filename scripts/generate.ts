@@ -2,8 +2,8 @@
  * 将原始数据转换为 `data` 目录下的文件
  */
 
-import path from 'node:path'
 import fs from 'node:fs/promises'
+import path from 'node:path'
 
 interface TransformData {
   [key: string]: string[]
@@ -65,13 +65,13 @@ async function write(filename: string, content: any, after = '') {
 }
 
 function transform(content: string, reverse = false): TransformData {
-  const lines = content.replace(/[\s\n]+$/, '').split(/\n+/)
+  const lines = content.replace(/\s+$/, '').split(/\n+/)
   const data: TransformData = {}
   for (const line of lines) {
     if (!line)
       continue
 
-    const [key, ...values] = line.trim().split(/[\s\t]+/)
+    const [key, ...values] = line.trim().split(/\s+/)
     if (!key || key === '□')
       continue
 
@@ -95,7 +95,7 @@ function transform(content: string, reverse = false): TransformData {
 }
 
 function transformPhrases(content: string): TransformData {
-  const lines = content.replace(/[\s\n]+$/, '').split(/\n+/)
+  const lines = content.replace(/\s+$/, '').split(/\n+/)
   const data: TransformData = {}
   for (const line of lines) {
     if (!line)
@@ -115,7 +115,7 @@ function transformPhrases(content: string): TransformData {
 
 function transformOld(oldWords: string): TransformData {
   const data: TransformData = {}
-  const words = oldWords.replace(/[\s\n]+$/g, '').split(' ')
+  const words = oldWords.replace(/\s+$/g, '').split(' ')
   for (const word of words) {
     const [key, ...values] = word.split('')
     data[key] = values

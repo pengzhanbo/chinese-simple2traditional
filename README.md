@@ -107,7 +107,11 @@ import { setupEnhance } from '@raise/han-convert/enhance'
 
 ```js
 import { setupEnhance } from 'chinese-simple2traditional/enhance'
-// or JSR
+```
+
+如果是使用 JSR 安装，请使用以下语句导入：
+
+```js
 import { setupEnhance } from '@raise/han-convert/enhance'
 ```
 

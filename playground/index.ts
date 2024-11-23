@@ -1,7 +1,7 @@
-import './styles.css'
-
 import { toSimplified, toTraditional } from 'chinese-simple2traditional'
+
 import { setupEnhance } from 'chinese-simple2traditional/enhance'
+import './styles.css'
 
 setupEnhance() // 注入短语库
 

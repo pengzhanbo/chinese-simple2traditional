@@ -1,5 +1,5 @@
-import words from './data/words'
 import { st, ts } from './cache'
+import words from './data/words'
 
 export function transformWords() {
   const len = words.length
