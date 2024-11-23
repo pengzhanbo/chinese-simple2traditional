@@ -48,7 +48,7 @@ pnpm dlx jsr add @raise/han-convert
 # bun
 bunx jsr add @raise/han-convert
 # deno
-deno add @raise/han-convert
+deno add jsr:@raise/han-convert
 ```
 
 ## Usage
