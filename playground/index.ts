@@ -10,13 +10,14 @@ const enhance = document.querySelector('#enhance') as HTMLInputElement
 const input = document.querySelector('#input') as HTMLTextAreaElement
 const output = document.querySelector('#output') as HTMLParagraphElement
 const meta = document.querySelector('#meta') as HTMLParagraphElement
+const langs = document.querySelector('.langs') as HTMLDivElement
 
 let type: 's2t' | 't2s' = 's2t'
 let isEnhance = false
 
 toggle.addEventListener('click', () => {
   type = type === 's2t' ? 't2s' : 's2t'
-  toggle.parentElement!.classList.toggle('reverse')
+  langs.classList.toggle('reverse')
   convert()
 })
 

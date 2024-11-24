@@ -47,9 +47,11 @@ h1 {
 
 header {
   display: flex;
-  gap: 48px;
+  gap: 32px;
   font-size: 16px;
   align-items: center;
+  padding-left: 16px;
+  margin-bottom: 10px;
 }
 
 .langs {
@@ -59,23 +61,13 @@ header {
 }
 
 #toggle {
-  border: none;
   outline: 0;
-  background-color: transparent;
-  font-size: 20px;
-  line-height: 20px;
-  height: 24px;
   color: #333;
   cursor: pointer;
 }
 
-.langs #toggle svg {
-  transition: all 0.3s ease;
-  transform: rotate(0);
-}
-
-.langs.reverse #toggle svg {
-  transform: rotate(180deg);
+.langs.reverse {
+  flex-direction: row-reverse;
 }
 
 .box {
