@@ -41,24 +41,36 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "cc": "./dist/cli/index.js"
+  },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
     "playground:dev": "vite dev playground --config ./playground/vite.config.ts",
     "playground:build": "vite build playground --config ./playground/vite.config.ts",
     "generate": "tsx ./scripts/generate.ts",
-    "build": "pnpm generate && tsup",
+    "build": "pnpm generate && tsup && pnpm build:cli",
+    "build:cli": "ncc build bin/cli.ts -o dist/cli",
     "test": "vitest run --reporter verbose",
     "lint": "eslint .",
     "prepublishOnly": "pnpm run build",
-    "release": "bumpp package.json --commit --push --tag && npm publish --access public"
+    "release": "bumpp package.json --commit --push --tag && npm publish --access public",
+    "cli": "tsx bin/cli.ts"
   },
   "devDependencies": {
     "@pengzhanbo/eslint-config": "^1.19.0",
     "@types/node": "^20.17.7",
+    "@vercel/ncc": "^0.38.4",
+    "ansi-styles": "^6.2.3",
+    "ansis": "^4.1.0",
     "bumpp": "^9.8.1",
+    "commander": "^14.0.1",
+    "diff": "^8.0.2",
     "eslint": "^9.15.0",
+    "glob": "^11.0.3",
     "terser": "^5.36.0",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",

@@ -85,6 +85,61 @@ import { toSimplified, toTraditional } from '@raise/han-convert'
 import { setupEnhance } from '@raise/han-convert/enhance'
 ```
 
+## CLI
+
+The package includes a command-line interface for converting files between simplified and traditional Chinese.
+
+### Installation
+
+To use the CLI globally, install the package with:
+
+```sh
+npm install -g chinese-simple2traditional
+# or
+pnpm add -g chinese-simple2traditional
+```
+
+### Usage
+
+```sh
+cc [options] <files...>
+```
+
+### Options
+
+- `-s, --to-simplify` - Convert to simplified Chinese (default)
+- `-t, --to-traditional` - Convert to traditional Chinese
+- `-o, --output-folder <folder>` - Output folder for converted files
+- `-p, --inplace` - Modify files in-place, ignore -o
+- `-v, --verbose` - Show a diff of the changes
+- `-e, --exclude <patterns...>` - Glob patterns for files to exclude
+- `-d, --dry-run` - Log changes without committing them
+- `-l, --list` - List converted characters per file
+- `-a, --accumulate-list` - Accumulate and list all converted characters at the end
+- `-S, --simplify-to-traditional <dictionary>` - Custom simplify to traditional dictionary (format: "簡简 繁繁")
+- `-T, --traditional-to-simplify <dictionary>` - Custom traditional to simplify dictionary (format: "简簡 繁繁")
+- `-z, --chinese-log` - Use Chinese log messages (使用中文日志消息)
+- `-E, --english-log` - Use English log messages (使用英文日志消息)
+
+### Examples
+
+```sh
+# Convert files to simplified Chinese
+cc files/*.txt -s
+
+# Convert with custom dictionary
+cc files/*.txt -T "龍龙 馬马" -v
+
+# Show changes without applying them
+cc files/*.txt --dry-run -al
+
+# Use output folder and show verbose diff
+cc files/*.txt -o converted/ -v
+
+# Use Chinese log messages
+cc files/*.txt -s -z
+```
+
 ## API
 
 ### toSimplified(text[, enhance])
