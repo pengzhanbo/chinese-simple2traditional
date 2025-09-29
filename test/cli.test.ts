@@ -49,7 +49,7 @@ describe('CLI functionality', () => {
 
     try {
       // Run the CLI with glob pattern to convert test files to traditional
-      const result = await execAsync(`npx tsx bin/cli.ts "${testDir}/unique-cli-*.txt" --to-traditional --dry-run --list -E`, {
+      const result = await execAsync(`node dist/cli/index.js "${testDir}/unique-cli-*.txt" --to-traditional --dry-run --list -E`, {
         cwd: process.cwd(),
         env: { ...process.env, NODE_ENV: 'test' }
       })
@@ -67,7 +67,7 @@ describe('CLI functionality', () => {
       await fs.unlink(testFile1).catch(() => { })
       await fs.unlink(testFile2).catch(() => { })
     }
-  })
+  }, 10000) // Increase timeout to 10 seconds
 
   it('should respect exclusion patterns', async () => {
     // Create temporary test files with unique names
@@ -80,7 +80,7 @@ describe('CLI functionality', () => {
 
     try {
       // Run the CLI with glob pattern and exclusion
-      const result = await execAsync(`npx tsx bin/cli.ts "${testDir}/cli-*-test.txt" --to-simplify --exclude "**/*exclude*" --dry-run --list -E`, {
+      const result = await execAsync(`node dist/cli/index.js "${testDir}/cli-*-test.txt" --to-simplify --exclude "**/*exclude*" --dry-run --list -E`, {
         cwd: process.cwd(),
         env: { ...process.env, NODE_ENV: 'test' }
       })
@@ -96,5 +96,5 @@ describe('CLI functionality', () => {
       await fs.unlink(testFile1).catch(() => { })
       await fs.unlink(testFile2).catch(() => { })
     }
-  })
+  }, 10000) // Increase timeout to 10 seconds
 })

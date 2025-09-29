@@ -35,8 +35,10 @@ describe('CLI Language Options', () => {
 
     it('should show bilingual option descriptions in help', () => {
         const output = execSync(`node ${cliPath} --help`, { encoding: 'utf-8' })
-        // Check that both English and Chinese descriptions are present
-        expect(output).toContain('Use Chinese log messages (使用中文日志消息)')
-        expect(output).toContain('Use English log messages (使用英文日志消息)')
+        // Check that both English and Chinese descriptions are present (on separate lines)
+        expect(output).toContain('Use Chinese log messages')
+        expect(output).toContain('(使用中文日志消息)')
+        expect(output).toContain('Use English log messages')
+        expect(output).toContain('(使用英文日志消息)')
     })
 })
