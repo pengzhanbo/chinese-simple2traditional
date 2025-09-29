@@ -17,9 +17,6 @@ importers:
       '@vercel/ncc':
         specifier: ^0.38.4
         version: 0.38.4
-      ansi-styles:
-        specifier: ^6.2.3
-        version: 6.2.3
       ansis:
         specifier: ^4.1.0
         version: 4.1.0
