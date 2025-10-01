@@ -20,7 +20,7 @@ interface Options {
   list: boolean
   accumulateList: boolean
   simplifyToTraditional?: string  // custom dictionary for simplify to traditional
-  traditionalToSimplify?: string  // custom dictionary for traditional to simplify
+  traditionalToSimplified?: string  // custom dictionary for traditional to simplify (renamed)
   chineseLog?: boolean  // Chinese log messages
   englishLog?: boolean  // English log messages
   input?: string  // inline text to convert
@@ -100,15 +100,15 @@ program
   .option('-o, --output-folder <folder>', ansis.cyan.dim('Output folder for converted files') + '\n' + ansis.cyan('转换文件的输出文件夹'), undefined)
   .option('-p, --inplace', ansis.cyan.dim('Modify files in-place, ignore -o') + '\n' + ansis.cyan('就地修改文件，忽略 -o'), false)
   .option('-v, --verbose', ansis.cyan.dim('Show a diff of the changes') + '\n' + ansis.cyan('显示更改的差异'), false)
-  .option('-e, --exclude <patterns...>', ansis.cyan.dim('Glob patterns for files to exclude') + '\n' + ansis.cyan('要排除的文件的通配符模式'), [])
+  .option('-x, --exclude <patterns...>', ansis.cyan.dim('Glob patterns for files to exclude') + '\n' + ansis.cyan('要排除的文件的通配符模式'), [])
   .option('-d, --dry-run', ansis.cyan.dim('Log changes without committing them') + '\n' + ansis.cyan('记录更改但不提交'), false)
   .option('-l, --list', ansis.cyan.dim('List converted characters per file') + '\n' + ansis.cyan('列出每个文件的转换字符'), false)
   .option('-a, --accumulate-list', ansis.cyan.dim('Accumulate and list all converted characters at the end') + '\n' + ansis.cyan('累积并在最后列出所有转换的字符'), false)
-  .option('-S, --simplify-to-traditional <dictionary>', ansis.cyan.dim('Custom simplify to traditional dictionary (format: "簡简 繁繁", use quotes)') + '\n' + ansis.cyan('自定义简体到繁体字典（格式："簡简 繁繁"，使用引号）'), undefined)
-  .option('-T, --traditional-to-simplify <dictionary>', ansis.cyan.dim('Custom traditional to simplify dictionary (format: "简簡 繁繁", use quotes)') + '\n' + ansis.cyan('自定义繁体到简体字典（格式："简簡 繁繁"，使用引号）'), undefined)
+  .option('-T, --simplify-to-traditional [dictionary]', ansis.cyan.dim('Custom simplify to traditional dictionary (format: "馬马 龍龙", use quotes)') + '\n' + ansis.cyan('自定义简体到繁体字典（格式："簡简 繁繁"，使用引号）'), undefined)
+  .option('-S, --traditional-to-Simplified [dictionary]', ansis.cyan.dim('Custom traditional to simplify dictionary (format: "马馬 龙龍", use quotes)') + '\n' + ansis.cyan('自定义繁体到简体字典（格式："简簡 繁繁"，使用引号）'), undefined)
   .option('-i, --input <text>', ansis.cyan.dim('Inline text to convert') + '\n' + ansis.cyan('要转换的内联文本'), undefined)
-  .option('-z, --chinese-log', ansis.cyan.dim('Use Chinese log messages\n') + ansis.cyan('(使用中文日志消息)'), undefined)  // No default, let shouldUseChineseByDefault handle it
-  .option('-E, --english-log', ansis.cyan.dim('Use English log messages\n') + ansis.cyan('(使用英文日志消息)'), false)
+  .option('-z, --chinese-log', ansis.cyan.dim('Use Chinese log messages\n') + ansis.cyan('(使用中文日志消息)'), true)  // Default to true
+  .option('-e, --english-log', ansis.cyan.dim('Use English log messages\n') + ansis.cyan('(使用英文日志消息)'), false)
   .action(async (files: string[], options: Options) => {
     await run(files, options)
   })
@@ -122,11 +122,14 @@ program.addHelpText('beforeAll', () =>
 program.addHelpText('afterAll', () =>
   '\n' + ansis.bold(ansis.underline(ansis.cyan('示例 (EXAMPLES):'))) + '\n' +
   '  ' + ansis.green('# 转换文件为简体中文') + '\n' +
-  '  ' + ansis.yellow('$ cc files/*.txt -s') + '\n' +
-  '  ' + ansis.dim('# Convert files to simplified Chinese') + '\n\n' +
-  '  ' + ansis.green('# 使用自定义字典转换（注意字典值必须用引号括起来）') + '\n' +
-  '  ' + ansis.yellow('$ cc files/*.txt -T "龍龙 馬马" -v') + '\n' +
-  '  ' + ansis.dim('# Convert with custom dictionary (note: dictionary value must be quoted)') + '\n\n' +
+  '  ' + ansis.yellow('$ cc files/*.txt') + '\n' +
+  '  ' + ansis.dim('# Convert files to simplified Chinese (default)') + '\n\n' +
+  '  ' + ansis.green('# 使用自定义字典转换为繁体中文（注意字典值必须用引号括起来）') + '\n' +
+  '  ' + ansis.yellow('$ cc files/*.txt -T "龙龍 马馬"') + '\n' +
+  '  ' + ansis.dim('# Convert to traditional Chinese with custom dictionary (note: dictionary value must be quoted)') + '\n\n' +
+  '  ' + ansis.green('# 使用自定义字典转换为简体中文（注意字典值必须用引号括起来）') + '\n' +
+  '  ' + ansis.yellow('$ cc files/*.txt -S "龍龙 馬马"') + '\n' +
+  '  ' + ansis.dim('# Convert to simplified Chinese with custom dictionary (note: dictionary value must be quoted)') + '\n\n' +
   '  ' + ansis.green('# 显示更改但不应用') + '\n' +
   '  ' + ansis.yellow('$ cc files/*.txt --dry-run -a') + '\n' +
   '  ' + ansis.dim('# Show changes without applying them') + '\n\n' +
@@ -136,11 +139,11 @@ program.addHelpText('afterAll', () =>
   '  ' + ansis.green('# 转换内联文本') + '\n' +
   '  ' + ansis.yellow('$ cc -i "简体中文测试" -t') + '\n' +
   '  ' + ansis.dim('# Convert inline text to traditional Chinese') + '\n\n' +
-  '  ' + ansis.green('# 使用中文日志消息') + '\n' +
-  '  ' + ansis.yellow('$ cc files/*.txt -s') + '\n' +
-  '  ' + ansis.dim('# Use Chinese log messages (default)') + '\n\n' +
-  ansis.red.bold('重要提示：使用 -S 或 -T 选项时，请确保字典值用引号括起来') + '\n' +
-  ansis.red('Important: When using -S or -T options, ensure dictionary values are quoted') + '\n' +
+  '  ' + ansis.green('# 使用英文日志消息') + '\n' +
+  '  ' + ansis.yellow('$ cc files/*.txt -t -e') + '\n' +
+  '  ' + ansis.dim('# Use English log messages') + '\n\n' +
+  ansis.red.bold('重要提示：使用 -T 或 -S 选项时，会自动设置转换方向') + '\n' +
+  ansis.red('Important: When using -T or -S options, conversion direction is automatically set') + '\n' +
   ansis.cyan('有关更多信息，请访问项目仓库。') + ansis.dim('\nFor more information, visit the project repository.')
 )
 
@@ -152,7 +155,7 @@ type TranslationKeys =
   'converted-chars-in' | 'accumulated-converted' | 'no-changes-all-files' |
   'files-processed' | 'files-skipped' | 'total-time' | 'line-n' |
   'occurred-times' | 'position-at' | 'processing-summary' | 'skip-file' | 'skip-file-dryrun' |
-  'unique-conversions' | 'total-conversions'
+  'unique-conversions' | 'total-conversions' | 'inline-text'
 
 type Translations = {
   [K in TranslationKeys]: string
@@ -161,10 +164,8 @@ type Translations = {
 function getTranslatedMessage(key: TranslationKeys, options: Options, ...args: any[]): string {
   // If englishLog is explicitly set to true, use English
   // If chineseLog is explicitly set to true, use Chinese
-  // Otherwise, use the default (Chinese)
-  const isChinese = (options.chineseLog === true) ||
-    (options.chineseLog !== false && !options.englishLog && shouldUseChineseByDefault()) ||
-    (options.chineseLog === undefined && !options.englishLog && shouldUseChineseByDefault())
+  // Otherwise, use the default (Chinese, but can be overridden with -e)
+  const isChinese = !options.englishLog
 
   const translations = {
     en: {
@@ -190,7 +191,8 @@ function getTranslatedMessage(key: TranslationKeys, options: Options, ...args: a
       'skip-file': 'Skip: %s (no changes)',
       'skip-file-dryrun': 'Skip: %s (no changes, DRY RUN)',
       'unique-conversions': 'Unique conversions',
-      'total-conversions': 'Total conversions'
+      'total-conversions': 'Total conversions',
+      'inline-text': 'inline text'
     } satisfies Translations,
     zh: {
       'error-both-options': '错误：不能同时指定 --to-simplify 和 --to-traditional',
@@ -215,7 +217,8 @@ function getTranslatedMessage(key: TranslationKeys, options: Options, ...args: a
       'skip-file': '跳过: %s (无更改)',
       'skip-file-dryrun': '跳过: %s (无更改, 试运行)',
       'unique-conversions': '唯一转换',
-      'total-conversions': '总转换'
+      'total-conversions': '总转换',
+      'inline-text': '内联文本'
     } satisfies Translations
   }
 
@@ -245,8 +248,17 @@ async function run(files: string[], options: Options) {
     process.exit(1)
   }
 
-  // If neither option is specified, default to simplify
-  const toSimplified = !options.toTraditional && !options.toSimplify ? true : options.toSimplify
+  // Determine conversion direction based on options and custom dictionaries
+  // -S implies -t (simplify to traditional)
+  // -T implies -s (traditional to simplified)
+  // Default to -s if no other options specified
+  let toSimplified = true
+  if (options.toTraditional || options.simplifyToTraditional) {
+    toSimplified = false
+  } else if (options.toSimplify || options.traditionalToSimplified) {
+    toSimplified = true
+  }
+  // If neither -s nor -t specified, and no custom dictionaries, default to -s (simplified)
 
   // Handle inline text input
   if (options.input !== undefined) {
@@ -260,14 +272,25 @@ async function run(files: string[], options: Options) {
       customStMap = parseDictionary(options.simplifyToTraditional)
     }
 
-    if (options.traditionalToSimplify) {
-      customTsMap = parseDictionary(options.traditionalToSimplify)
+    if (options.traditionalToSimplified) {
+      customTsMap = parseDictionary(options.traditionalToSimplified)
+    }
+
+    // Determine conversion direction based on options and custom dictionaries
+    // -T implies -t (simplify to traditional)
+    // -S implies -s (traditional to simplified)
+    // Default to -s if no other options specified
+    let toSimplified = true
+    if (options.toTraditional || options.simplifyToTraditional) {
+      toSimplified = false
+    } else if (options.toSimplify || options.traditionalToSimplified) {
+      toSimplified = true
     }
 
     if (toSimplified) {
-      result = enhancedToSimplified(options.input, customTsMap)
+      result = convertToSimplified(options.input, customTsMap)
     } else {
-      result = enhancedToTraditional(options.input, customStMap)
+      result = convertToTraditional(options.input, customStMap)
     }
 
     // Output the converted text
@@ -275,7 +298,7 @@ async function run(files: string[], options: Options) {
 
     // Show diff if verbose
     if (options.verbose && result.changes.length > 0) {
-      console.log(`${ansis.yellow(getTranslatedMessage('diff-for', options, 'inline text'))}`)
+      console.log(`${ansis.yellow(getTranslatedMessage('diff-for', options, getTranslatedMessage('inline-text', options)))}`)
       const originalLines = result.original.split('\n')
       const convertedLines = result.converted.split('\n')
 
@@ -308,7 +331,7 @@ async function run(files: string[], options: Options) {
 
     // List converted characters if requested
     if (options.list && result.changes.length > 0) {
-      console.log(getTranslatedMessage('converted-chars-in', options, 'inline text'))
+      console.log(getTranslatedMessage('converted-chars-in', options, getTranslatedMessage('inline-text', options)))
       result.changes.forEach(change => {
         console.log(`  "${change.from}" -> "${change.to}" ${getTranslatedMessage('position-at', options, change.position)}`)
       })
@@ -384,8 +407,8 @@ async function run(files: string[], options: Options) {
     customStMap = parseDictionary(options.simplifyToTraditional)
   }
 
-  if (options.traditionalToSimplify) {
-    customTsMap = parseDictionary(options.traditionalToSimplify)
+  if (options.traditionalToSimplified) {
+    customTsMap = parseDictionary(options.traditionalToSimplified)
   }
 
   // Accumulate all changes if the accumulate-list option is enabled
@@ -397,6 +420,17 @@ async function run(files: string[], options: Options) {
     try {
       const originalContent = await fs.promises.readFile(filePath, 'utf-8')
       let result: ConversionResult
+
+      // Determine conversion direction based on options and custom dictionaries
+      // -T implies -t (simplify to traditional)
+      // -S implies -s (traditional to simplified)
+      // Default to -s if no other options specified
+      let toSimplified = true
+      if (options.toTraditional || options.simplifyToTraditional) {
+        toSimplified = false
+      } else if (options.toSimplify || options.traditionalToSimplified) {
+        toSimplified = true
+      }
 
       if (toSimplified) {
         result = convertToSimplified(originalContent, customTsMap)
@@ -664,8 +698,23 @@ ${getTranslatedMessage('no-changes-all-files', options)}`)
 }
 
 // Parse the dictionary string into a Map
-function parseDictionary(dictString: string): Map<string, string> {
+function parseDictionary(dictString: string): Map<string, string> | undefined {
+  // When option is used without a value, Commander.js passes true
+  if (dictString === true as any) {
+    // Return undefined to indicate no custom dictionary was provided
+    return undefined
+  }
+
+  // Validate that the dictionary string looks like a valid dictionary
+  // It should contain character pairs, not CLI options
+  if (typeof dictString === 'string' && dictString.startsWith('-') && dictString.length === 2) {
+    // This looks like a CLI option flag (e.g., '-l'), not a dictionary
+    console.error(`Error: Invalid custom dictionary value "${dictString}". Custom dictionary should contain character pairs like "龙龍 马馬".`)
+    process.exit(1)
+  }
+
   const map = new Map<string, string>()
+
   // Split by spaces to get pairs like "长长", "龍龙", etc.
   const pairs = dictString.trim().split(/\s+/)
 
@@ -751,60 +800,25 @@ function groupChangesByCharacter(changes: Array<{ file: string; from: string; to
 function convertToSimplified(text: string, customDict?: Map<string, string>): ConversionResult {
   const original = text
 
-  // Apply custom dictionary first if provided
-  let processedText = text
-  if (customDict) {
-    processedText = applyCustomDictionary(text, customDict)
-  }
+  // Use the core library's custom dictionary support directly
+  const converted = toSimplified(text, customDict ? { customDict } : undefined)
 
-  // Apply standard conversion using core API with custom dictionary support
-  const result = converter(processedText, ts, traditionalPhrasesMap)
-  const converted = result.converted
-  const changes = getConversionChanges(original, converted, result.corruptedChars, result.unmappedChars)
-  const corruptedChars = result.corruptedChars
+  // Detect changes
+  const changes = getConversionChanges(original, converted)
 
-  // Filter unmapped characters to only show those that would actually be converted
-  // (characters that exist in the Traditional->Simplified mapping)
-  const unmappedChars = result.unmappedChars?.filter(unmapped => {
-    // Only show characters that are in the Traditional script and would be attempted for conversion
-    return ts.has(unmapped.char)
-  })
-
-  return { original, converted, changes, corruptedChars, unmappedChars }
+  return { original, converted, changes }
 }
 
 function convertToTraditional(text: string, customDict?: Map<string, string>): ConversionResult {
   const original = text
 
-  // Apply custom dictionary first if provided
-  let processedText = text
-  if (customDict) {
-    processedText = applyCustomDictionary(text, customDict)
-  }
+  // Use the core library's custom dictionary support directly
+  const converted = toTraditional(text, customDict ? { customDict } : undefined)
 
-  // Apply standard conversion using core API with custom dictionary support
-  const result = converter(processedText, st, simplifiedPhrasesMap)
-  const converted = result.converted
-  const changes = getConversionChanges(original, converted, result.corruptedChars, result.unmappedChars)
-  const corruptedChars = result.corruptedChars
+  // Detect changes
+  const changes = getConversionChanges(original, converted)
 
-  // Filter unmapped characters to only show those that would actually be converted
-  // (characters that exist in the Simplified->Traditional mapping)
-  const unmappedChars = result.unmappedChars?.filter(unmapped => {
-    // Only show characters that are in the Simplified script and would be attempted for conversion
-    return st.has(unmapped.char)
-  })
-
-  return { original, converted, changes, corruptedChars, unmappedChars }
-}
-
-// Enhanced conversion functions for inline text that better preserve non-Chinese characters
-function enhancedToSimplified(text: string, customDict?: Map<string, string>): ConversionResult {
-  return convertToSimplified(text, customDict)
-}
-
-function enhancedToTraditional(text: string, customDict?: Map<string, string>): ConversionResult {
-  return convertToTraditional(text, customDict)
+  return { original, converted, changes }
 }
 
 program.parse()

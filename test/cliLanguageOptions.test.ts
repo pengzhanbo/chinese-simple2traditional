@@ -20,14 +20,14 @@ describe('CLI Language Options', () => {
     })
 
     it('should support -z shorthand for Chinese log messages', () => {
-        const output = execSync(`node ${cliPath} ${testFilePath} -z`, { encoding: 'utf-8' })
-        // Check that Chinese characters are in the output
+        const output = execSync(`node ${cliPath} ${testFilePath}`, { encoding: 'utf-8' })
+        // Check that Chinese characters are in the output (default is now Chinese)
         expect(output).toContain('正在处理')
         expect(output).toContain('处理摘要')
     })
 
-    it('should support -E shorthand for English log messages', () => {
-        const output = execSync(`node ${cliPath} ${testFilePath} -E`, { encoding: 'utf-8' })
+    it('should support -e shorthand for English log messages', () => {
+        const output = execSync(`node ${cliPath} ${testFilePath} -e`, { encoding: 'utf-8' })
         // Check that English words are in the output
         expect(output).toContain('Processing')
         expect(output).toContain('Summary')

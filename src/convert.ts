@@ -22,12 +22,24 @@ export interface ConversionResult {
  * 简体转换为繁体
  * @param text - 简体文本
  * @param options - 转换选项，可以是布尔值（用于向后兼容）或对象
+ *   - enhance: 是否使用增强模式
+ *   - customDict: 自定义字典映射
+ *   - customOnly: 是否仅使用自定义字典，不应用标准转换（默认false）
  * @returns 繁体文本
  */
-export function toTraditional(text: string, options?: boolean | { enhance?: boolean; customDict?: Map<string, string> }): string {
+export function toTraditional(text: string, options?: boolean | { enhance?: boolean; customDict?: Map<string, string>; customOnly?: boolean }): string {
   // Handle backward compatibility - if options is a boolean, treat it as enhance flag
   const enhance = typeof options === 'boolean' ? options : options?.enhance ?? false
   const customDict = typeof options === 'object' && options !== null && 'customDict' in options ? options.customDict : undefined
+  // When customDict is provided, default customOnly to true unless explicitly set to false
+  const customOnly = typeof options === 'object' && options !== null && 'customOnly' in options
+    ? options.customOnly
+    : (customDict ? true : false)
+
+  // If customOnly is true and customDict is provided, only apply custom dictionary
+  if (customOnly && customDict) {
+    return applyCustomDictionary(text, customDict)
+  }
 
   // Apply custom dictionary first if provided
   let processedText = text
@@ -46,12 +58,24 @@ export function toTraditional(text: string, options?: boolean | { enhance?: bool
  * 繁体转换为简体
  * @param text - 繁体文本
  * @param options - 转换选项，可以是布尔值（用于向后兼容）或对象
+ *   - enhance: 是否使用增强模式
+ *   - customDict: 自定义字典映射
+ *   - customOnly: 是否仅使用自定义字典，不应用标准转换（默认false）
  * @returns 简体文本
  */
-export function toSimplified(text: string, options?: boolean | { enhance?: boolean; customDict?: Map<string, string> }): string {
+export function toSimplified(text: string, options?: boolean | { enhance?: boolean; customDict?: Map<string, string>; customOnly?: boolean }): string {
   // Handle backward compatibility - if options is a boolean, treat it as enhance flag
   const enhance = typeof options === 'boolean' ? options : options?.enhance ?? false
   const customDict = typeof options === 'object' && options !== null && 'customDict' in options ? options.customDict : undefined
+  // When customDict is provided, default customOnly to true unless explicitly set to false
+  const customOnly = typeof options === 'object' && options !== null && 'customOnly' in options
+    ? options.customOnly
+    : (customDict ? true : false)
+
+  // If customOnly is true and customDict is provided, only apply custom dictionary
+  if (customOnly && customDict) {
+    return applyCustomDictionary(text, customDict)
+  }
 
   // Apply custom dictionary first if provided
   let processedText = text

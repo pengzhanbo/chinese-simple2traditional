@@ -49,18 +49,18 @@ describe('CLI functionality', () => {
 
     try {
       // Run the CLI with glob pattern to convert test files to traditional
-      const result = await execAsync(`node dist/cli/index.js "${testDir}/unique-cli-*.txt" --to-traditional --dry-run --list -E`, {
+      const result = await execAsync(`node dist/cli/index.js "${testDir}/unique-cli-*.txt" --to-traditional --dry-run --list`, {
         cwd: process.cwd(),
         env: { ...process.env, NODE_ENV: 'test' }
       })
 
       // Verify that the command ran successfully
-      expect(result.stdout).toContain('Processing 2 file(s)')
+      expect(result.stdout).toContain('正在处理 2 个文件')
       // Should show both files in stats (even if one has no changes)
-      expect(result.stdout).toContain('Files processed:')
-      expect(result.stdout).toContain('Files skipped:')
+      expect(result.stdout).toContain('处理的文件:')
+      expect(result.stdout).toContain('跳过的文件:')
       // At least one file should have changes
-      expect(result.stdout).toContain('Converted characters')
+      expect(result.stdout).toContain('转换字符')
 
     } finally {
       // Clean up test files
@@ -80,16 +80,16 @@ describe('CLI functionality', () => {
 
     try {
       // Run the CLI with glob pattern and exclusion
-      const result = await execAsync(`node dist/cli/index.js "${testDir}/cli-*-test.txt" --to-simplify --exclude "**/*exclude*" --dry-run --list -E`, {
+      const result = await execAsync(`node dist/cli/index.js "${testDir}/cli-*-test.txt" --to-simplify -x "**/*exclude*" --dry-run --list`, {
         cwd: process.cwd(),
         env: { ...process.env, NODE_ENV: 'test' }
       })
 
       // Verify that only the cli-include-test.txt was processed (not cli-exclude-test.txt)
-      expect(result.stdout).toContain('Processing 1 file(s)')
+      expect(result.stdout).toContain('正在处理 1 个文件')
       // The included file might not show in output if no changes, but should be reflected in stats
-      expect(result.stdout).toContain('Files processed:')
-      expect(result.stdout).toContain('Files skipped:')
+      expect(result.stdout).toContain('处理的文件:')
+      expect(result.stdout).toContain('跳过的文件:')
 
     } finally {
       // Clean up test files
