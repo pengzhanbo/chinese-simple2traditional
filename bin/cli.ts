@@ -6,7 +6,7 @@ import { diffChars } from 'diff'
 import ansis from 'ansis'
 import * as fs from 'fs'
 import * as path from 'path'
-import { toSimplified, toTraditional, converter, st, ts, simplifiedPhrasesMap, traditionalPhrasesMap } from '../dist/index'
+import { toSimplified, toTraditional, converter, st, ts, simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/index'
 import { version } from '../package.json'
 
 interface Options {

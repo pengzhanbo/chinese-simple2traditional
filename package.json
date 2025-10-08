@@ -42,7 +42,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "cc": "./dist/cli/index.js"
+    "cc": "./dist/bin/cli.js"
   },
   "files": [
     "dist",
@@ -52,8 +52,7 @@
     "playground:dev": "vite dev playground --config ./playground/vite.config.ts",
     "playground:build": "vite build playground --config ./playground/vite.config.ts",
     "generate": "tsx ./scripts/generate.ts",
-    "build": "pnpm generate && tsup && pnpm build:cli",
-    "build:cli": "ncc build bin/cli.ts -o dist/cli",
+    "build": "pnpm generate && tsup",
     "test": "vitest run --reporter verbose",
     "lint": "eslint .",
     "prepublishOnly": "pnpm run build",
