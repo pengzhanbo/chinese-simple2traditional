@@ -187,7 +187,7 @@ async function generate() {
   const tp = transformPhrases(await read(files.t2s_p))
   const oldData = transformOld(await read(files.old_words))
 
-  const full_content: string[] = ['‘『', '’』', '“「', '”」', '″〞', '〓═']
+  const full_content: string[] = [] //['‘『', '’』', '“「', '”」', '″〞', '〓═']
 
   // 对照 繁 -> 简 表，合并到 简 -> 繁 表
   merge(t2s, s2t)

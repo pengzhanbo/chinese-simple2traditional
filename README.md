@@ -51,7 +51,7 @@ bunx jsr add @raise/han-convert
 deno add jsr:@raise/han-convert
 ```
 
-## Usage
+## 使用方法
 
 ``` js
 import { toSimplified, toTraditional } from 'chinese-simple2traditional'
@@ -85,6 +85,77 @@ import { toSimplified, toTraditional } from '@raise/han-convert'
 import { setupEnhance } from '@raise/han-convert/enhance'
 ```
 
+## 命令行工具
+
+该包包含一个命令行界面，用于在简体中文和繁体中文之间转换文件。
+
+### 安装
+
+要全局使用命令行工具，请使用以下命令安装：
+
+```sh
+npm install -g chinese-simple2traditional
+# 或者
+pnpm add -g chinese-simple2traditional
+```
+
+### 使用方法
+
+```sh
+cc [options] <files...>
+```
+
+### 选项
+
+- `-s, --to-simplify` - 转换为简体中文（默认）
+- `-t, --to-traditional` - 转换为繁体中文
+- `-o, --output-folder <folder>` - 转换文件的输出文件夹
+- `-p, --inplace` - 就地修改文件，忽略 -o
+- `-v, --verbose` - 显示更改的差异
+- `-e, --exclude <patterns...>` - 要排除的文件的通配符模式
+- `-d, --dry-run` - 记录更改但不提交
+- `-l, --list` - 列出每个文件的转换字符
+- `-a, --accumulate-list` - 累积并在最后列出所有转换的字符
+- `-S, --simplify-to-traditional <dictionary>` - 自定义简体到繁体字典（格式："簡简 繁繁"）
+- `-T, --traditional-to-simplify <dictionary>` - 自定义繁体到简体字典（格式："简簡 繁繁"）
+- `-i, --input <text>` - 要转换的内联文本
+- `-z, --chinese-log` - 使用中文日志消息
+- `-E, --english-log` - 使用英文日志消息
+
+### 重要提示
+
+当使用 `-S` 或 `-T` 选项时，请确保字典值用引号括起来，以避免命令行参数解析问题：
+
+```sh
+# 正确用法 - 使用引号括起字典值
+cc files/*.txt -T "龍龙 馬马" -v
+
+# 错误用法 - 不使用引号可能导致参数解析错误
+cc files/*.txt -T 龍龙 馬马 -v  # 可能导致问题
+```
+
+### 示例
+
+```sh
+# 转换文件为简体中文
+cc files/*.txt -s
+
+# 使用自定义字典转换（注意字典值必须用引号括起来）
+cc files/*.txt -T "龍龙 馬马" -v
+
+# 显示更改但不应用（dry run）
+cc files/*.txt --dry-run -a
+
+# 使用输出文件夹并显示详细差异
+cc files/*.txt -o converted/ -v
+
+# 转换内联文本
+cc -i "简体中文测试" -t
+
+# 使用中文日志消息
+cc files/*.txt -s -z
+```
+
 ## API
 
 ### toSimplified(text[, enhance])
@@ -92,14 +163,14 @@ import { setupEnhance } from '@raise/han-convert/enhance'
 - `text`: `string`， 待转换的文本
 - `enhance`: `boolean`， 是否启用短语库，只有在 注入短语库 后有效
 
-将文本简体转换为繁体。
+将文本繁体转换为简体。
 
 ### toTraditional(text[, enhance])
 
 - `text`: `string`， 待转换的文本
 - `enhance`: `boolean`， 是否启用短语库，只有在 注入短语库 后有效
 
-将文本繁体转换为简体。
+将文本简体转换为繁体。
 
 ### setupEnhance()
 
@@ -153,6 +224,46 @@ customT2SPhrases([
 toSimplified('雖覆能復', true) // 虽覆能复
 ```
 
-## LICENSE
+## 开发者 API
+
+### converter(source, words, phrases?)
+
+核心转换函数，支持字符和短语级别的转换。
+
+- `source`: `string` - 源文本
+- `words`: `Words` - 字符映射表
+- `phrases`: `PhrasesMap` (可选) - 短语映射表
+
+返回转换结果对象：
+```ts
+{
+  converted: string,                    // 转换后的文本
+  corruptedChars: Array<{ char: string, position: number }>,  // 损坏字符信息
+  unmappedChars: Array<{ char: string, position: number }>    // 未映射字符信息
+}
+```
+
+### isChineseCharacter(char)
+
+检查字符是否为中文字符。
+
+- `char`: `string` - 要检查的字符
+- 返回: `boolean` - 如果是中文字符则返回true
+
+### isCorruptedCharacter(char)
+
+检查字符是否损坏（替换字符或无效字符）。
+
+- `char`: `string` - 要检查的字符
+- 返回: `boolean` - 如果字符损坏则返回true
+
+### stringIterator(str)
+
+迭代字符串中的字符，正确处理代理对（如emoji）。
+
+- `str`: `string` - 要迭代的字符串
+- 返回: `Generator<string>` - 字符生成器
+
+## 许可证
 
 [MIT](./LICENSE)

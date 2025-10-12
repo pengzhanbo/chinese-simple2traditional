@@ -35,6 +35,12 @@ export function customT2SPhrases(config: PhrasesConfig): void {
   config.forEach(([source, target]) => addPhrases(traditionalPhrasesMap, source, target))
 }
 
+/**
+ * 添加短语到映射表
+ * @param map - 短语映射表
+ * @param source - 源短语
+ * @param target - 目标短语
+ */
 function addPhrases(map: PhrasesMap, source: string, target: string): void {
   const key = source[0]
   let tuple = map.get(key)
@@ -44,6 +50,11 @@ function addPhrases(map: PhrasesMap, source: string, target: string): void {
   tuple[1].push(target === '_' ? source : target)
 }
 
+/**
+ * 转换短语数据并添加到映射表
+ * @param data - 短语数据 [源短语字符串, 目标短语字符串]
+ * @param map - 短语映射表
+ */
 export function transformPhrases(data: readonly [string, string], map: PhrasesMap): void {
   const sources = data[0].split(' ')
   const targets = data[1].split(' ')

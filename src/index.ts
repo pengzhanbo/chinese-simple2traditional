@@ -1,4 +1,5 @@
 export * from './convert'
+export * from './cache'
 
 export {
   customS2TPhrases,

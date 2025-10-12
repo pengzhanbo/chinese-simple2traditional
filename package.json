@@ -1,7 +1,7 @@
 {
   "name": "chinese-simple2traditional",
   "type": "module",
-  "version": "2.2.2",
+  "version": "2.3.3",
   "packageManager": "pnpm@9.14.2",
   "description": "中文繁简体互换，支持node端、浏览器端。",
   "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
@@ -41,8 +41,12 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "cc": "./dist/bin/cli.js"
+  },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
     "playground:dev": "vite dev playground --config ./playground/vite.config.ts",
@@ -52,13 +56,19 @@
     "test": "vitest run --reporter verbose",
     "lint": "eslint .",
     "prepublishOnly": "pnpm run build",
-    "release": "bumpp package.json --commit --push --tag && npm publish --access public"
+    "release": "bumpp package.json --commit --push --tag && npm publish --access public",
+    "cli": "tsx bin/cli.ts"
   },
   "devDependencies": {
     "@pengzhanbo/eslint-config": "^1.19.0",
     "@types/node": "^20.17.7",
+    "@vercel/ncc": "^0.38.4",
+    "ansis": "^4.1.0",
     "bumpp": "^9.8.1",
+    "commander": "^14.0.1",
+    "diff": "^8.0.2",
     "eslint": "^9.15.0",
+    "glob": "^11.0.3",
     "terser": "^5.36.0",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
