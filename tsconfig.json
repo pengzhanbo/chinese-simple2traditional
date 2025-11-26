@@ -1,24 +1,16 @@
 {
+  "extends": [
+    "@pengzhanbo/tsconfig/tsconfig.json",
+    "@pengzhanbo/tsconfig/tsconfig.lib.json"
+  ],
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
     "baseUrl": ".",
-    "module": "ESNext",
-    "moduleResolution": "node",
     "paths": {
       "chinese-simple2traditional": ["./src/index.ts"],
       "chinese-simple2traditional/enhance": ["./src/enhance.ts"],
       "@raise/han-convert": ["./src/index.ts"],
       "@raise/han-convert/enhance": ["./src/enhance.ts"]
-    },
-    "resolveJsonModule": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true
+    }
   },
   "include": [
     "./src",
