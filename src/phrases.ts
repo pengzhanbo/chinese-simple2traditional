@@ -36,7 +36,7 @@ export function customT2SPhrases(config: PhrasesConfig): void {
 }
 
 function addPhrases(map: PhrasesMap, source: string, target: string): void {
-  const key = source[0]
+  const key = source[0]!
   let tuple = map.get(key)
   !tuple && map.set(key, (tuple = [[], []]))
 
@@ -47,5 +47,5 @@ function addPhrases(map: PhrasesMap, source: string, target: string): void {
 export function transformPhrases(data: readonly [string, string], map: PhrasesMap): void {
   const sources = data[0].split(' ')
   const targets = data[1].split(' ')
-  sources.forEach((source, index) => addPhrases(map, source, targets[index]))
+  sources.forEach((source, index) => addPhrases(map, source, targets[index]!))
 }

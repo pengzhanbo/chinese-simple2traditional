@@ -30,7 +30,7 @@ input.addEventListener('input', () => {
   convert()
 }, { passive: true })
 
-function convert() {
+function convert(): void {
   const text = input.value
   const begin = performance.now()
   const result = type === 's2t' ? toTraditional(text, isEnhance) : toSimplified(text, isEnhance)

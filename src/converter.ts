@@ -6,7 +6,7 @@ export function converter(source: string, words: Words, phrases?: PhrasesMap): s
   let i = 0
   let has = false
   while (i < len) {
-    const char = source[i]
+    const char = source[i]!
     if (phrases && phrases.has(char)) {
       const [sources, targets] = phrases.get(char)!
       const slice = source.slice(i)

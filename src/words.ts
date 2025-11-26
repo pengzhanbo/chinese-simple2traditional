@@ -1,13 +1,13 @@
 import { st, ts } from './cache'
 import words from './data/words'
 
-export function transformWords() {
+export function transformWords(): void {
   const len = words.length
   let i = 1
   let w = words[0]
 
   while (i < len) {
-    const char = words[i]
+    const char = words[i]!
     i++
     if (!w) {
       w = char

@@ -118,7 +118,7 @@ function transformOld(oldWords: string): TransformData {
   const words = oldWords.replace(/\s+$/g, '').split(' ')
   for (const word of words) {
     const [key, ...values] = word.split('')
-    data[key] = values
+    data[key!] = values
   }
 
   return data
@@ -128,7 +128,7 @@ function merge(from: TransformData, to: TransformData) {
   // 合并 1.x 版本的数据，避免遗漏错漏
   for (const [key, value] of Object.entries(from)) {
     if (key in to)
-      to[key] = uniq([...to[key], ...value])
+      to[key] = uniq([...to[key]!, ...value])
     else
       to[key] = value
   }
@@ -144,8 +144,8 @@ function merge(from: TransformData, to: TransformData) {
         to[key] = []
       }
       else {
-        to[key].splice(index, 1)
-        index !== values.length - 1 && to[key].unshift(key)
+        to[key]?.splice(index, 1)
+        index !== values.length - 1 && to[key]?.unshift(key)
       }
     }
   }
@@ -159,7 +159,7 @@ function resolvePhrases(data: TransformData): [string, string] {
   let phrases: [string, string][] = []
 
   for (const [key, values] of Object.entries(data))
-    phrases.push([key, values[0]])
+    phrases.push([key, values[0]!])
 
   phrases = phrases.sort((a, b) => {
     if (a[0].length === b[0].length)
