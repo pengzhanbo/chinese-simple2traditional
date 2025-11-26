@@ -27,20 +27,20 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./enhance": {
       "import": {
-        "types": "./dist/enhance.d.ts",
-        "default": "./dist/enhance.js"
+        "types": "./dist/enhance.d.mts",
+        "default": "./dist/enhance.mjs"
       }
     }
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
   "files": [
     "dist"
   ],
@@ -48,11 +48,11 @@
     "playground:dev": "vite dev playground --config ./playground/vite.config.ts",
     "playground:build": "vite build playground --config ./playground/vite.config.ts",
     "generate": "tsx ./scripts/generate.ts",
-    "build": "pnpm generate && tsup",
+    "build": "pnpm generate && tsdown",
     "test": "vitest run --reporter verbose",
     "lint": "eslint .",
-    "prepublishOnly": "pnpm run build",
-    "release": "bumpp package.json --commit --push --tag && npm publish --access public"
+    "release:publish": "pnpm publish",
+    "release": "bumpp package.json jsr.json --commit --push --tag"
   },
   "devDependencies": {
     "@pengzhanbo/eslint-config": "^1.41.0",
@@ -65,5 +65,9 @@
     "typescript": "^5.9.3",
     "vite": "^7.2.4",
     "vitest": "^4.0.14"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
   }
 }
