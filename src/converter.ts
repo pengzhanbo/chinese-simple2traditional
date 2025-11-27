@@ -39,9 +39,9 @@ export function converter(source: string, words: Words, phrases?: PhrasesMap): s
         for (const [j, s] of sources.entries()) {
           if (slice.startsWith(s)) {
             // Check if the result is not valid (corrupted)
-            if (!isCorruptedCharacter(processedChar)) {
+            if (!isCorruptedCharacter(processedChar))
               processedChar = targets[j]!
-            }
+
             hasMatch = true
             // Skip the matched characters in source index
             sourceIndex += s.length
@@ -51,11 +51,11 @@ export function converter(source: string, words: Words, phrases?: PhrasesMap): s
       }
 
       if (!hasMatch) {
-        const converted = words.get(actualChar)
+        const convertedWord = words.get(actualChar)
         // Check if the result is not valid (not corrupted)
-        if (converted && !isCorruptedCharacter(converted)) {
-          processedChar = converted
-        }
+        if (convertedWord && !isCorruptedCharacter(convertedWord))
+          processedChar = convertedWord
+
         sourceIndex += charLength
       }
     }

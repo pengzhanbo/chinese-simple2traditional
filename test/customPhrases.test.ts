@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache'
 import { customS2TPhrases, customT2SPhrases, toSimplified, toTraditional } from '../src/index'
 
@@ -16,12 +16,14 @@ afterEach(() => {
   traditionalPhrasesMap.clear()
 })
 
-it('custom simplified to traditional phrases', ({ expect }) => {
-  expect(toTraditional('双台子区')).toBe('雙台子區')
-  expect(toTraditional('双台子区', true)).toBe('雙臺子區')
-})
+describe('custom phrases', () => {
+  it('custom simplified to traditional phrases', () => {
+    expect(toTraditional('双台子区')).toBe('雙台子區')
+    expect(toTraditional('双台子区', true)).toBe('雙臺子區')
+  })
 
-it('custom traditional to simplified phrases', ({ expect }) => {
-  expect(toSimplified('雖覆能復')).toBe('虽复能复')
-  expect(toSimplified('雖覆能復', true)).toBe('虽覆能复')
+  it('custom traditional to simplified phrases', () => {
+    expect(toSimplified('雖覆能復')).toBe('虽复能复')
+    expect(toSimplified('雖覆能復', true)).toBe('虽覆能复')
+  })
 })
