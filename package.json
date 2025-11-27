@@ -52,7 +52,8 @@
     "test": "vitest run --reporter verbose",
     "lint": "eslint .",
     "release:publish": "pnpm publish",
-    "release": "bumpp package.json jsr.json --commit --push --tag"
+    "release": "pnpm build && bumpp package.json jsr.json --commit --push --tag",
+    "release:local": "pnpm release && pnpm release:publish"
   },
   "devDependencies": {
     "@pengzhanbo/eslint-config": "^1.41.0",
