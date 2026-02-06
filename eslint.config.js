@@ -4,5 +4,6 @@ export default config({
   type: 'lib',
   ignores: [
     'src/data/*.ts',
+    'data/**',
   ],
 })
