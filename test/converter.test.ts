@@ -5,12 +5,6 @@ describe('converter - simpleToTradition', () => {
   it('should work', () => {
     expect(toTraditional('主人何为言少钱，径须酤取对君酌。')).toBe('主人何爲言少錢，徑須酤取對君酌。')
   })
-
-  it('should fix #2', () => {
-    // #2
-    expect(toTraditional('坚强')).toBe('堅強')
-    expect(toTraditional('堅強')).toBe('堅強')
-  })
 })
 
 describe('converter - traditionToSimple', () => {
@@ -30,5 +24,18 @@ describe('converter - traditionToSimple', () => {
     expect(toSimplified('呼吸')).toBe('呼吸')
     expect(toSimplified('戰士')).toBe('战士')
     expect(toSimplified('祇園')).toBe('祇园')
+  })
+})
+
+describe('fix known issues', () => {
+  it('should fix #2', () => {
+    // #2
+    expect(toTraditional('坚强')).toBe('堅強')
+    expect(toTraditional('堅強')).toBe('堅強')
+  })
+
+  it('should fix #9', () => {
+    expect(toSimplified('買')).toBe('买')
+    expect(toTraditional('买')).toBe('買')
   })
 })

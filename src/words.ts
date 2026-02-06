@@ -2,23 +2,17 @@ import { st, ts } from './cache'
 import words from './data/words'
 
 export function transformWords(): void {
-  const len = words.length
-  let i = 1
-  let w = words[0]
-
-  while (i < len) {
-    const char = words[i]!
-    i++
-    if (!w) {
-      w = char
+  let simpleChar = ''
+  for (const char of words) {
+    if (!simpleChar) {
+      simpleChar = char
       continue
     }
     if (char === ' ') {
-      w = ''
+      simpleChar = ''
       continue
     }
-
-    !st.has(w) && st.set(w, char)
-    ts.set(char, w)
+    !st.has(simpleChar) && st.set(simpleChar, char)
+    !ts.has(char) && ts.set(char, simpleChar)
   }
 }
