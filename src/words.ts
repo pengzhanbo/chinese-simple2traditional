@@ -13,6 +13,6 @@ export function transformWords(): void {
       continue
     }
     !st.has(simpleChar) && st.set(simpleChar, char)
-    !ts.has(char) && ts.set(char, simpleChar)
+    ts.set(char, simpleChar)
   }
 }
