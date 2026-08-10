@@ -2,7 +2,7 @@
   "name": "chinese-simple2traditional",
   "type": "module",
   "version": "2.3.2",
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@11.21.0",
   "description": "中文繁简体互换，支持node端、浏览器端。",
   "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
   "license": "MIT",
@@ -25,21 +25,10 @@
     "chinese traditional"
   ],
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
-    },
-    "./enhance": {
-      "import": {
-        "types": "./dist/enhance.d.mts",
-        "default": "./dist/enhance.mjs"
-      }
-    }
+    ".": "./dist/index.js",
+    "./enhance": "./dist/enhance.js",
+    "./package.json": "./package.json"
   },
-  "main": "dist/index.mjs",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.mts",
   "files": [
     "dist"
@@ -56,16 +45,16 @@
     "release:local": "pnpm release && pnpm release:publish"
   },
   "devDependencies": {
-    "@pengzhanbo/eslint-config": "^1.48.0",
-    "@pengzhanbo/tsconfig": "^1.48.0",
-    "@types/node": "^24.10.11",
-    "bumpp": "^10.4.1",
-    "eslint": "^9.39.2",
-    "tsdown": "^0.20.3",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "@pengzhanbo/eslint-config": "^2.8.5",
+    "@pengzhanbo/tsconfig": "^2.8.5",
+    "@types/node": "^26.2.0",
+    "bumpp": "^12.2.0",
+    "eslint": "^10.8.1",
+    "tsdown": "^0.22.14",
+    "tsx": "^4.23.12",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
   },
   "publishConfig": {
     "provenance": true,

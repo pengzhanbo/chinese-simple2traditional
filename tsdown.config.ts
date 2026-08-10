@@ -7,4 +7,6 @@ export default defineConfig({
   dts: true,
   clean: true,
   minify: true,
+  fixedExtension: false,
+  exports: true,
 })
