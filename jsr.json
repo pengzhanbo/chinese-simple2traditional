@@ -13,6 +13,22 @@
       "tsconfig.json",
       "jsr.json",
       "package.json"
+    ],
+    "exclude": [
+      "dist",
+      "data",
+      ".github",
+      "playground",
+      "scripts",
+      "test",
+      ".editorconfig",
+      "tsdown.config.ts",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "netlify.toml",
+      "node_modules",
+      "oxlint.config.ts",
+      "oxfmt.config.ts"
     ]
   }
 }
