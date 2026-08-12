@@ -1,45 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>繁简体转换</title>
-</head>
-<body>
+  </head>
+  <body>
+    <main class="container">
+      <a
+        class="fork"
+        target="_blank"
+        href="https://github.com/pengzhanbo/chinese-simple2traditional"
+      >
+        <img src="./fork.svg" alt="fork on github" />
+      </a>
 
-  <main class="container">
+      <div class="content">
+        <h1>繁简体转换</h1>
 
-    <a class="fork" target="_blank" href="https://github.com/pengzhanbo/chinese-simple2traditional" >
-      <img src="./fork.svg" alt="fork on github">
-    </a>
-
-    <div class="content">
-      <h1>繁简体转换</h1>
-      
-      <header>
-        <p class="langs">
-          <span>简体</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M8.6 3.5L12.1 7H0v2h12.1l-3.5 3.5l1.4 1.4L16 8l-6-5.9z"/></svg>
-          <span>繁体</span>
-        </p>
-        <button type="button" id="toggle">切换</button>
-        <p>
-          <label for="enhance">启用短语库增强</label>
-          <input type="checkbox" name="enhance" id="enhance">
-        </p>
-      </header>
-      <div class="box">
-        <textarea id="input"></textarea>
-        <p id="output"></p>
+        <header>
+          <p class="langs">
+            <span>简体</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+              <path
+                fill="currentColor"
+                d="M8.6 3.5L12.1 7H0v2h12.1l-3.5 3.5l1.4 1.4L16 8l-6-5.9z"
+              />
+            </svg>
+            <span>繁体</span>
+          </p>
+          <button type="button" id="toggle">切换</button>
+          <p>
+            <label for="enhance">启用短语库增强</label>
+            <input type="checkbox" name="enhance" id="enhance" />
+          </p>
+        </header>
+        <div class="box">
+          <textarea id="input"></textarea>
+          <p id="output"></p>
+        </div>
+        <p class="meta" id="meta">共 0 字，耗时 0ms</p>
       </div>
-      <p class="meta" id="meta">
-        共 0 字，耗时 0ms
-      </p>
-    </div>
+    </main>
 
-  </main>
-
-  <script type="module" src="./index.ts"></script>
-</body>
+    <script type="module" src="./index.ts"></script>
+  </body>
 </html>

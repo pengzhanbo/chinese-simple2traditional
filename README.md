@@ -27,7 +27,7 @@
 
 访问 [在线演示](https://han-convert.netlify.app/) 查看。
 
-``` sh
+```sh
 # npm
 npm install chinese-simple2traditional
 # yarn
@@ -53,7 +53,7 @@ deno add jsr:@raise/han-convert
 
 ## Usage
 
-``` js
+```js
 import { toSimplified, toTraditional } from 'chinese-simple2traditional'
 
 toTraditional('主人何为言少钱，径须酤取对君酌。') // 主人何爲言少錢，徑須酤取對君酌
@@ -146,7 +146,7 @@ toTraditional('双台子区', true) // 雙臺子區
 import { customT2SPhrases, toSimplified } from 'chinese-simple2traditional'
 
 customT2SPhrases([
-  ['雖覆能復', '虽覆能复']
+  ['雖覆能復', '虽覆能复'],
   // ...
 ])
 

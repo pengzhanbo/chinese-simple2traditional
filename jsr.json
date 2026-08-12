@@ -6,14 +6,7 @@
     "./enhance": "./src/enhance.ts"
   },
   "publish": {
-    "include": [
-      "src",
-      "LICENSE",
-      "README.md",
-      "tsconfig.json",
-      "jsr.json",
-      "package.json"
-    ],
+    "include": ["src", "LICENSE", "README.md", "tsconfig.json", "jsr.json", "package.json"],
     "exclude": [
       "dist",
       "data",

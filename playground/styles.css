@@ -10,7 +10,9 @@ html,
 body {
   width: 100%;
   height: 100vh;
-  font-family: Gilroy, PingFang SC;
+  font-family:
+    Gilroy,
+    PingFang SC;
   background-color: #f6f7f8;
   color: rgba(60, 60, 67);
 }
@@ -57,7 +59,7 @@ header {
 .langs {
   display: flex;
   align-items: center;
-  gap: 16px
+  gap: 16px;
 }
 
 #toggle {
@@ -80,9 +82,10 @@ header {
   border-radius: 8px;
   padding: 20px 0;
   overflow: hidden;
-  background: linear-gradient(0deg, #f4f7ff, #f4f7ff),
+  background:
+    linear-gradient(0deg, #f4f7ff, #f4f7ff),
     linear-gradient(94.84deg, #fff 3.78%, #fcfdff 9.75%, #e6eeff 102.09%),
-    linear-gradient(126.58deg, #fff -18.12%, hsla(0, 0%, 100%, 0) 26.77%);;
+    linear-gradient(126.58deg, #fff -18.12%, hsla(0, 0%, 100%, 0) 26.77%);
 }
 
 .box::before {

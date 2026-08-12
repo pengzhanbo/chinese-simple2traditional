@@ -1,5 +1,5 @@
-import type { PhrasesMap, Words } from './cache'
-import { getCharLength, isChineseCharacter, isCorruptedCharacter } from './helper'
+import type { PhrasesMap, Words } from './cache.js'
+import { getCharLength, isChineseCharacter, isCorruptedCharacter } from './helper.js'
 
 /**
  * 转换文本，支持字符和短语级别的转换
@@ -39,8 +39,9 @@ export function converter(source: string, words: Words, phrases?: PhrasesMap): s
         for (const [j, s] of sources.entries()) {
           if (slice.startsWith(s)) {
             // Check if the result is not valid (corrupted)
-            if (!isCorruptedCharacter(processedChar))
+            if (!isCorruptedCharacter(processedChar)) {
               processedChar = targets[j]!
+            }
 
             hasMatch = true
             // Skip the matched characters in source index
@@ -53,13 +54,13 @@ export function converter(source: string, words: Words, phrases?: PhrasesMap): s
       if (!hasMatch) {
         const convertedWord = words.get(actualChar)
         // Check if the result is not valid (not corrupted)
-        if (convertedWord && !isCorruptedCharacter(convertedWord))
+        if (convertedWord && !isCorruptedCharacter(convertedWord)) {
           processedChar = convertedWord
+        }
 
         sourceIndex += charLength
       }
-    }
-    else {
+    } else {
       sourceIndex += charLength
     }
 

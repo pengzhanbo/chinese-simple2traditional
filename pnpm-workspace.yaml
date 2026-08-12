@@ -8,3 +8,4 @@ trustPolicyExclude:
 
 allowBuilds:
   esbuild: true
+  simple-git-hooks: true

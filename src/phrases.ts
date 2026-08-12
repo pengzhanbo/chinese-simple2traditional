@@ -1,5 +1,5 @@
-import type { PhrasesMap } from './cache'
-import { simplifiedPhrasesMap, traditionalPhrasesMap } from './cache'
+import type { PhrasesMap } from './cache.js'
+import { simplifiedPhrasesMap, traditionalPhrasesMap } from './cache.js'
 
 export type PhrasesConfig = (readonly [string, string])[]
 

@@ -1,63 +1,77 @@
 {
   "name": "chinese-simple2traditional",
-  "type": "module",
   "version": "2.3.2",
-  "packageManager": "pnpm@11.21.0",
   "description": "中文繁简体互换，支持node端、浏览器端。",
-  "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
-  "license": "MIT",
-  "homepage": "https://github.com/pengzhanbo/chinese-simple2traditional",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pengzhanbo/chinese-simple2traditional.git"
-  },
-  "bugs": {
-    "url": "https://github.com/pengzhanbo/chinese-simple2traditional/issues"
-  },
   "keywords": [
+    "chinese",
+    "chinese simple",
+    "chinese traditional",
     "中文",
     "简体",
     "繁体",
     "繁简体",
-    "繁简体转换",
-    "chinese",
-    "chinese simple",
-    "chinese traditional"
+    "繁简体转换"
   ],
+  "homepage": "https://github.com/pengzhanbo/chinese-simple2traditional",
+  "bugs": {
+    "url": "https://github.com/pengzhanbo/chinese-simple2traditional/issues"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo <q942450674@outlook.com> (https://github.com/pengzhanbo)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pengzhanbo/chinese-simple2traditional.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "dist/index.d.mts",
   "exports": {
     ".": "./dist/index.js",
     "./enhance": "./dist/enhance.js",
     "./package.json": "./package.json"
   },
-  "types": "dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "playground:dev": "vite dev playground --config ./playground/vite.config.ts",
     "playground:build": "vite build playground --config ./playground/vite.config.ts",
     "generate": "tsx ./scripts/generate.ts",
     "build": "pnpm generate && tsdown",
     "test": "vitest run --reporter verbose",
-    "lint": "eslint .",
+    "lint": "oxlint . --type-check --type-aware && oxfmt --check",
+    "lint:fix": "oxlint . --fix && oxfmt .",
+    "prepare": "simple-git-hooks",
     "release:publish": "pnpm publish",
     "release": "pnpm build && bumpp package.json jsr.json --commit --push --tag",
     "release:local": "pnpm release && pnpm release:publish"
   },
   "devDependencies": {
-    "@pengzhanbo/eslint-config": "^2.8.5",
+    "@pengzhanbo/oxc-config": "^2.8.5",
     "@pengzhanbo/tsconfig": "^2.8.5",
     "@types/node": "^26.2.0",
     "bumpp": "^12.2.0",
-    "eslint": "^10.8.1",
+    "nano-staged": "^1.0.2",
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "simple-git-hooks": "^2.13.1",
     "tsdown": "^0.22.14",
     "tsx": "^4.23.12",
     "typescript": "^6.0.3",
     "vite": "^8.2.1",
     "vitest": "^4.1.10"
   },
-  "publishConfig": {
-    "provenance": true,
-    "access": "public"
-  }
+  "simple-git-hooks": {
+    "pre-commit": "./node_modules/.bin/nano-staged --allow-empty"
+  },
+  "nano-staged": {
+    "*.{js,ts,mjs,cjs}": "pnpm run lint",
+    "*": "oxfmt --no-error-on-unmatched-pattern",
+    "*.{js,ts}": "vitest related --run"
+  },
+  "packageManager": "pnpm@11.21.0"
 }

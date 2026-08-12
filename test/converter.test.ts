@@ -1,15 +1,19 @@
 import { describe, expect, it } from 'vitest'
-import { toSimplified, toTraditional } from '../src/index'
+import { toSimplified, toTraditional } from '../src/index.js'
 
 describe('converter - simpleToTradition', () => {
   it('should work', () => {
-    expect(toTraditional('主人何为言少钱，径须酤取对君酌。')).toBe('主人何爲言少錢，徑須酤取對君酌。')
+    expect(toTraditional('主人何为言少钱，径须酤取对君酌。')).toBe(
+      '主人何爲言少錢，徑須酤取對君酌。',
+    )
   })
 })
 
 describe('converter - traditionToSimple', () => {
   it('should work', () => {
-    expect(toSimplified('主人何爲言少錢，徑須酤取對君酌。')).toBe('主人何为言少钱，径须酤取对君酌。')
+    expect(toSimplified('主人何爲言少錢，徑須酤取對君酌。')).toBe(
+      '主人何为言少钱，径须酤取对君酌。',
+    )
   })
 
   it('should work with special words', () => {

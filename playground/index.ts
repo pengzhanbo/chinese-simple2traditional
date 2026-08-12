@@ -1,5 +1,4 @@
 import { toSimplified, toTraditional } from 'chinese-simple2traditional'
-
 import { setupEnhance } from 'chinese-simple2traditional/enhance'
 import './styles.css'
 
@@ -26,9 +25,13 @@ enhance.addEventListener('change', () => {
   convert()
 })
 
-input.addEventListener('input', () => {
-  convert()
-}, { passive: true })
+input.addEventListener(
+  'input',
+  () => {
+    convert()
+  },
+  { passive: true },
+)
 
 function convert(): void {
   const text = input.value

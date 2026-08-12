@@ -1,6 +1,6 @@
-import { simplifiedPhrasesMap, st, traditionalPhrasesMap, ts } from './cache'
-import { converter } from './converter'
-import { transformWords } from './words'
+import { simplifiedPhrasesMap, st, traditionalPhrasesMap, ts } from './cache.js'
+import { converter } from './converter.js'
+import { transformWords } from './words.js'
 
 transformWords()
 
@@ -26,6 +26,9 @@ export function toSimplified(text: string, enhance = false): string {
 
 /**
  * @deprecated use {@link toTraditional}
+ *
+ * @param text - 简体文本
+ * @returns 繁体文本
  */
 export function simpleToTradition(text: string): string {
   return toTraditional(text)
@@ -33,6 +36,9 @@ export function simpleToTradition(text: string): string {
 
 /**
  * @deprecated use {@link toSimplified}
+ *
+ * @param text - 繁体文本
+ * @returns 简体文本
  */
 export function traditionToSimple(text: string): string {
   return toSimplified(text)

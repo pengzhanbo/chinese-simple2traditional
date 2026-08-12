@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache'
-import { setupEnhance } from '../src/enhance'
-import { toSimplified, toTraditional } from '../src/index'
+import { simplifiedPhrasesMap, traditionalPhrasesMap } from '../src/cache.js'
+import { setupEnhance } from '../src/enhance.js'
+import { toSimplified, toTraditional } from '../src/index.js'
 
 beforeEach(() => {
   setupEnhance()
@@ -27,7 +27,7 @@ describe('enhance', () => {
     expect(toTraditional(s, true)).toBe(res)
   })
 
-  it('traditional phrases to simplified', ({ expect }) => {
+  it('traditional phrases to simplified', () => {
     expect(toSimplified('一翦梅', true)).toBe('一剪梅')
     expect(toSimplified('甚麼', true)).toBe('什么')
     expect(toSimplified('什么', true)).toBe('什么')

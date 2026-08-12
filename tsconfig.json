@@ -1,10 +1,6 @@
 {
-  "extends": [
-    "@pengzhanbo/tsconfig/tsconfig.json",
-    "@pengzhanbo/tsconfig/tsconfig.lib.json"
-  ],
+  "extends": ["@pengzhanbo/tsconfig/tsconfig.json", "@pengzhanbo/tsconfig/tsconfig.lib.json"],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "chinese-simple2traditional": ["./src/index.ts"],
       "chinese-simple2traditional/enhance": ["./src/enhance.ts"],
@@ -12,14 +8,6 @@
       "@raise/han-convert/enhance": ["./src/enhance.ts"]
     }
   },
-  "include": [
-    "./src",
-    "./test",
-    "./scripts",
-    "./playground"
-  ],
-  "exclude": [
-    "**/node_modules/**",
-    "**/dist/**"
-  ]
+  "include": ["./src", "./test", "./scripts", "./playground"],
+  "exclude": ["**/node_modules/**", "**/dist/**"]
 }

@@ -1,5 +1,5 @@
-import { st, ts } from './cache'
-import words from './data/words'
+import { st, ts } from './cache.js'
+import words from './data/words.js'
 
 export function transformWords(): void {
   let simpleChar = ''

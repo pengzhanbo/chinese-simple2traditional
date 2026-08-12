@@ -48,43 +48,41 @@ const files = {
   s_phrases: 'simplified-phrases.ts',
 }
 
-async function read(filename: string) {
+async function read(filename: string): Promise<string> {
   const file = path.resolve(from, filename)
   const content = await fs.readFile(file, 'utf-8')
   return content
 }
 
-async function write(filename: string, content: any, after = '') {
+async function write(filename: string, content: any, after = ''): Promise<void> {
   const file = path.resolve(output, filename)
   await fs.mkdir(path.dirname(file), { recursive: true })
-  await fs.writeFile(
-    file,
-    `export default ${JSON.stringify(content)}${after}`,
-    'utf8',
-  )
+  await fs.writeFile(file, `export default ${JSON.stringify(content)}${after}`, 'utf8')
 }
 
 function transform(content: string, reverse = false): TransformData {
   const lines = content.replace(/\s+$/, '').split(/\n+/)
   const data: TransformData = {}
   for (const line of lines) {
-    if (!line)
+    if (!line) {
       continue
+    }
 
     const [key, ...values] = line.trim().split(/\s+/)
-    if (!key || key === '□')
+    if (!key || key === '□') {
       continue
+    }
 
     if (reverse) {
       for (const value of values) {
-        if (value === '□')
+        if (value === '□') {
           continue
+        }
 
         data[value] ??= []
         data[value].push(key)
       }
-    }
-    else {
+    } else {
       if (values.length) {
         data[key] ??= []
         data[key].push(...values)
@@ -98,12 +96,14 @@ function transformPhrases(content: string): TransformData {
   const lines = content.replace(/\s+$/, '').split(/\n+/)
   const data: TransformData = {}
   for (const line of lines) {
-    if (!line)
+    if (!line) {
       continue
+    }
 
     const [key, ...values] = line.trim().split(/\s+/)
-    if (!key || key === '□')
+    if (!key || key === '□') {
       continue
+    }
 
     if (values.length) {
       data[key] ??= []
@@ -124,13 +124,15 @@ function transformOld(oldWords: string): TransformData {
   return data
 }
 
-function merge(from: TransformData, to: TransformData) {
+// oxlint-disable-next-line no-shadow
+function merge(from: TransformData, to: TransformData): void {
   // 合并 1.x 版本的数据，避免遗漏错漏
   for (const [key, value] of Object.entries(from)) {
-    if (key in to)
+    if (key in to) {
       to[key] = uniq([...to[key]!, ...value])
-    else
+    } else {
       to[key] = value
+    }
   }
 
   // 清洗数据
@@ -138,12 +140,11 @@ function merge(from: TransformData, to: TransformData) {
   // 2. 简繁同字，但存在异体字，将异体字移到后面
   // 3. 简繁同字，但存在异体字，且异体字恰好是简体字，将异体字删除
   for (const [key, values] of Object.entries(to)) {
-    const index = values.findIndex(v => v === key)
+    const index = values.findIndex((v) => v === key)
     if (index !== -1) {
       if (values.length === 1) {
         to[key] = []
-      }
-      else {
+      } else {
         to[key]?.splice(index, 1)
         index !== values.length - 1 && to[key]?.unshift(key)
       }
@@ -151,19 +152,21 @@ function merge(from: TransformData, to: TransformData) {
   }
 }
 
-function uniq(arr: string[]) {
+function uniq(arr: string[]): string[] {
   return Array.from(new Set(arr))
 }
 
 function resolvePhrases(data: TransformData): [string, string] {
   let phrases: [string, string][] = []
 
-  for (const [key, values] of Object.entries(data))
+  for (const [key, values] of Object.entries(data)) {
     phrases.push([key, values[0]!])
+  }
 
   phrases = phrases.sort((a, b) => {
-    if (a[0].length === b[0].length)
+    if (a[0].length === b[0].length) {
       return 0
+    }
 
     return a[0].length < b[0].length ? 1 : -1
   })
@@ -179,7 +182,7 @@ function resolvePhrases(data: TransformData): [string, string] {
   return [sources.join(' '), targets.join(' ')]
 }
 
-async function generate() {
+async function generate(): Promise<void> {
   const s2t = transform(await read(files.s2t_c))
   const t2s = transform(await read(files.t2s_c), true)
   const full = transform(await read(files.full), true)
@@ -194,25 +197,26 @@ async function generate() {
 
   // 对照 full 表，合并到 简 -> 繁 表
   for (const [key, values] of Object.entries(full)) {
-    if (!(key in s2t))
+    if (!(key in s2t)) {
       s2t[key] = values
+    }
   }
 
   // 合并旧数据
   merge(oldData, s2t)
 
   // 序列化内容
-  for (const [key, values] of Object.entries(s2t))
+  for (const [key, values] of Object.entries(s2t)) {
     values.length && full_content.push(`${key}${values.join('')}`)
+  }
 
-  await write(files.full_words, `${full_content.join(' ')}`)
+  await write(files.full_words, full_content.join(' '))
   await write(files.t_phrases, resolvePhrases(tp), ' as readonly [string, string]')
   await write(files.s_phrases, resolvePhrases(sp), ' as readonly [string, string]')
 }
 
 try {
   await generate()
-}
-catch (e) {
+} catch (e) {
   console.error(e)
 }
